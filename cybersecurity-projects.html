@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projets Cybersécurité - Portfolio Interactif</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #f1f1f1;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(22, 33, 62, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            margin-bottom: 40px;
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #e94560, #d13453);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #8d8d8d;
+            font-size: 1.1em;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(22, 33, 62, 0.9);
+            color: #f1f1f1;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
+            background: rgba(15, 52, 96, 0.9);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #e94560, #d13453);
+            color: white;
+        }
+
+        .search-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #searchInput {
+            padding: 15px 25px;
+            width: 100%;
+            max-width: 500px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            background: rgba(22, 33, 62, 0.95);
+            color: #f1f1f1;
+        }
+
+        #searchInput::placeholder {
+            color: #8d8d8d;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.3);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .project-card {
+            background: rgba(22, 33, 62, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.3);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .project-icon {
+            font-size: 2em;
+            margin-right: 15px;
+        }
+
+        .project-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #e94560;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .level-beginner {
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            color: #84fab0;
+        }
+
+        .level-intermediate {
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            color: #fccb90;
+        }
+
+        .level-advanced {
+            background: linear-gradient(135deg, #e94560, #d13453);
+            color: #fff;
+        }
+
+        .project-description {
+            color: #8d8d8d;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 5px 12px;
+            background: #0f3460;
+            border-radius: 12px;
+            font-size: 0.85em;
+            color: #f1f1f1;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: relative;
+            background: #16213e;
+            margin: 50px auto;
+            padding: 40px;
+            max-width: 700px;
+            border-radius: 20px;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideUp 0.4s ease;
+            color: #f1f1f1;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2em;
+            cursor: pointer;
+            color: #8d8d8d;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #e94560;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(22, 33, 62, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #e94560, #d13453);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: #8d8d8d;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .filter-buttons {
+                flex-direction: column;
+            }
+
+            .filter-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛡️ Portfolio Cybersécurité</h1>
+            <p class="subtitle">70 projets pour maîtriser la sécurité informatique</p>
+        </header>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Rechercher un projet...">
+        </div>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-level="all">Tous les projets</button>
+            <button class="filter-btn" data-level="beginner">Débutant (1-25)</button>
+            <button class="filter-btn" data-level="intermediate">Intermédiaire (26-50)</button>
+            <button class="filter-btn" data-level="advanced">Avancé (51-70)</button>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid"></div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="totalProjects">70</div>
+                <div class="stat-label">Projets Total</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">25</div>
+                <div class="stat-label">Niveau Débutant</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">25</div>
+                <div class="stat-label">Niveau Intermédiaire</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">20</div>
+                <div class="stat-label">Niveau Avancé</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="projectModal">
+        <div class="modal-content" id="modalContent">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const projects = [
+            // Projets Débutants
+            { id: 1, title: "Mise en place de honeypots", icon: "🍯", level: "beginner", category: "Détection & Analyse", description: "Déployer des systèmes leurres pour observer et analyser les tentatives d'intrusion en temps réel. Étudier les comportements des attaquants.", tags: ["Honeypot", "Analyse", "Intrusion"], details: "Apprenez à configurer des honeypots comme Honeyd ou Cowrie pour capturer et analyser les activités malveillantes. Découvrez comment les attaquants repèrent et exploitent les vulnérabilités." },
+            { id: 2, title: "Sniffing réseau avec Wireshark", icon: "📡", level: "beginner", category: "Détection & Analyse", description: "Capturer et analyser le trafic réseau pour détecter des anomalies, comprendre les protocoles et identifier les menaces.", tags: ["Wireshark", "Réseau", "Analyse"], details: "Maîtrisez l'art de la capture de paquets. Analysez les protocoles TCP/IP, HTTP, DNS et détectez les communications suspectes ou non chiffrées." },
+            { id: 3, title: "Détection de spoofing DNS", icon: "🎭", level: "beginner", category: "Détection & Analyse", description: "Identifier et prévenir les attaques de falsification DNS qui redirigent le trafic vers des sites malveillants.", tags: ["DNS", "Spoofing", "Sécurité"], details: "Utilisez des outils comme dnstop et tcpdump pour détecter les réponses DNS anormales. Implémentez DNSSEC pour sécuriser vos requêtes." },
+            { id: 4, title: "Analyse comportementale de malwares", icon: "🦠", level: "beginner", category: "Détection & Analyse", description: "Étudier le comportement des malwares dans un environnement sandbox isolé pour comprendre leurs actions.", tags: ["Malware", "Sandbox", "Analyse"], details: "Créez un environnement d'analyse sécurisé avec VirtualBox et des outils comme Process Monitor pour observer l'activité des malwares sans risque." },
+            { id: 5, title: "Développement d'outils de cracking", icon: "🔓", level: "beginner", category: "Authentification", description: "Créer des outils éducatifs pour tester la robustesse des mots de passe et sensibiliser à la sécurité.", tags: ["Password", "Cracking", "Éducatif"], details: "Développez des scripts Python utilisant des techniques de brute force et d'attaques par dictionnaire. Comprenez pourquoi des mots de passe forts sont essentiels." },
+            { id: 6, title: "Implémentation 2FA robuste", icon: "🔐", level: "beginner", category: "Authentification", description: "Mettre en place une authentification à deux facteurs pour renforcer la sécurité des comptes utilisateurs.", tags: ["2FA", "Authentification", "Sécurité"], details: "Intégrez des solutions 2FA avec TOTP (Time-based One-Time Password) ou U2F. Utilisez des bibliothèques comme PyOTP ou Google Authenticator." },
+            { id: 7, title: "Extension navigateur sécurisée", icon: "🌐", level: "beginner", category: "Authentification", description: "Développer une extension pour bloquer les trackers, détecter les sites de phishing et protéger la vie privée.", tags: ["Extension", "Navigateur", "Privacy"], details: "Créez une extension Chrome/Firefox qui analyse les URLs, bloque les scripts malveillants et alerte l'utilisateur des sites dangereux." },
+            { id: 8, title: "Configuration avancée de firewall", icon: "🔥", level: "beginner", category: "Infrastructure", description: "Configurer des règles firewall complexes pour filtrer le trafic et protéger le réseau contre les intrusions.", tags: ["Firewall", "iptables", "Réseau"], details: "Maîtrisez iptables ou firewalld sous Linux. Créez des règles de filtrage par port, protocole et adresse IP pour sécuriser vos services." },
+            { id: 9, title: "Scan de vulnérabilités avec Nmap", icon: "🔍", level: "beginner", category: "Infrastructure", description: "Utiliser Nmap et OpenVAS pour identifier les failles de sécurité dans les systèmes et réseaux.", tags: ["Nmap", "Scan", "Vulnérabilités"], details: "Découvrez les techniques de scanning réseau, détection de services, identification d'OS et recherche de vulnérabilités connues." },
+            { id: 10, title: "Audit de sécurité Wi-Fi", icon: "📶", level: "beginner", category: "Infrastructure", description: "Tester la sécurité des réseaux sans fil WPA2/WPA3 et identifier les configurations faibles.", tags: ["Wi-Fi", "WPA", "Audit"], details: "Utilisez Aircrack-ng pour auditer vos réseaux Wi-Fi. Comprenez les attaques de déauthentification et l'importance du WPA3." },
+            { id: 11, title: "Déploiement de Snort IDS", icon: "🚨", level: "beginner", category: "Infrastructure", description: "Installer et configurer Snort pour détecter les intrusions et analyser le trafic réseau en temps réel.", tags: ["Snort", "IDS", "Détection"], details: "Configurez Snort avec des règles personnalisées pour détecter les scans de ports, les attaques DoS et les tentatives d'exploitation." },
+            { id: 12, title: "Chiffrement de fichiers", icon: "🔒", level: "beginner", category: "Cryptographie", description: "Implémenter différents algorithmes de chiffrement (AES, RSA) pour protéger la confidentialité des données.", tags: ["Chiffrement", "AES", "RSA"], details: "Développez des outils en Python pour chiffrer et déchiffrer des fichiers avec différents algorithmes. Comprenez la cryptographie symétrique et asymétrique." },
+            { id: 13, title: "Communications sécurisées TLS/SSL", icon: "🛡️", level: "beginner", category: "Cryptographie", description: "Mettre en place des communications chiffrées avec TLS/SSL pour protéger les échanges de données.", tags: ["TLS", "SSL", "HTTPS"], details: "Configurez des certificats SSL/TLS sur un serveur web. Comprenez le handshake TLS et l'importance du chiffrement de bout en bout." },
+            { id: 14, title: "Développement web sécurisé OWASP", icon: "🌍", level: "beginner", category: "Cryptographie", description: "Créer des applications web en respectant les bonnes pratiques OWASP Top 10 pour éviter les vulnérabilités.", tags: ["OWASP", "Web", "Sécurité"], details: "Apprenez à prévenir les injections SQL, XSS, CSRF et autres vulnérabilités courantes. Testez votre application avec OWASP ZAP." },
+            { id: 15, title: "Simulation de campagnes de phishing", icon: "🎣", level: "beginner", category: "Sensibilisation", description: "Créer des campagnes de phishing éthiques pour sensibiliser les utilisateurs aux risques de l'ingénierie sociale.", tags: ["Phishing", "Sensibilisation", "Social Engineering"], details: "Utilisez des outils comme Gophish pour simuler des attaques de phishing et former vos équipes à reconnaître les emails malveillants." },
+            { id: 16, title: "Analyse du fonctionnement des antivirus", icon: "🦠", level: "beginner", category: "Sensibilisation", description: "Comprendre comment les antivirus détectent les malwares et leurs limites face aux menaces avancées.", tags: ["Antivirus", "Détection", "Malware"], details: "Étudiez les techniques de détection par signature, heuristique et comportementale. Testez différents antivirus contre des malwares connus." },
+            { id: 17, title: "Création d'un lab de cybersécurité", icon: "🧪", level: "beginner", category: "Sensibilisation", description: "Construire un laboratoire personnel virtuel pour tester et expérimenter en toute sécurité.", tags: ["Lab", "VirtualBox", "Formation"], details: "Configurez un environnement de test avec plusieurs VMs (Kali Linux, Windows, serveurs vulnérables) pour pratiquer sans risque." },
+            { id: 18, title: "Analyse forensique numérique", icon: "🔬", level: "beginner", category: "Forensics", description: "Enquêter sur des systèmes compromis pour retracer les actions des attaquants et récupérer des preuves.", tags: ["Forensics", "Investigation", "Preuves"], details: "Utilisez Autopsy et FTK Imager pour analyser les disques durs, récupérer des fichiers supprimés et identifier les traces d'intrusion." },
+            { id: 19, title: "Utilisation de Tor et anonymisation", icon: "🕵️", level: "beginner", category: "Privacy", description: "Comprendre et utiliser Tor et d'autres outils pour protéger son anonymat en ligne.", tags: ["Tor", "Anonymat", "Privacy"], details: "Configurez Tor Browser et explorez le réseau Tor. Comprenez les principes du routage en oignon et ses limites." },
+            { id: 20, title: "Étude pratique des exploits zero-day", icon: "💥", level: "beginner", category: "Forensics", description: "Analyser des vulnérabilités zero-day divulguées pour comprendre leur fonctionnement et leur impact.", tags: ["Zero-day", "Exploits", "CVE"], details: "Étudiez des CVEs récents, comprenez comment ils ont été découverts et exploités. Apprenez à patcher vos systèmes rapidement." },
+
+            // Projets Intermédiaires
+            { id: 21, title: "Construction de sandboxes malware", icon: "📦", level: "intermediate", category: "Malware & RE", description: "Créer des environnements sandbox avancés pour analyser des malwares sophistiqués en toute sécurité.", tags: ["Sandbox", "Malware", "Cuckoo"], details: "Déployez Cuckoo Sandbox ou CAPE pour automatiser l'analyse de malwares. Configurez des VM avec anti-détection pour tromper les malwares évasifs." },
+            { id: 22, title: "Reverse engineering de firmware", icon: "🔧", level: "intermediate", category: "Malware & RE", description: "Décompiler et analyser des firmwares de dispositifs IoT pour identifier des vulnérabilités cachées.", tags: ["Firmware", "IoT", "Reverse"], details: "Utilisez Binwalk et Ghidra pour extraire et analyser les firmwares. Recherchez des backdoors et des configurations par défaut dangereuses." },
+            { id: 23, title: "Étude et détection de rootkits", icon: "👻", level: "intermediate", category: "Malware & RE", description: "Comprendre le fonctionnement des rootkits kernel et user-space, et développer des méthodes de détection.", tags: ["Rootkit", "Kernel", "Détection"], details: "Analysez des rootkits célèbres comme ZeroAccess. Utilisez rkhunter et chkrootkit pour détecter les modifications système." },
+            { id: 24, title: "Techniques d'obfuscation de malware", icon: "🎨", level: "intermediate", category: "Malware & RE", description: "Étudier les méthodes d'obscurcissement de code pour éviter la détection par les antivirus.", tags: ["Obfuscation", "Évasion", "Malware"], details: "Comprenez le packing, la cryptographie polymorphe et les techniques anti-débogage utilisées par les malwares modernes." },
+            { id: 25, title: "Chiffrement complet de disque (FDE)", icon: "💾", level: "intermediate", category: "Infrastructure", description: "Implémenter le chiffrement de disque avec LUKS, BitLocker ou VeraCrypt pour protéger les données au repos.", tags: ["FDE", "LUKS", "Chiffrement"], details: "Configurez le chiffrement complet de disque sur Linux et Windows. Comprenez les enjeux de la gestion des clés et du démarrage sécurisé." },
+            { id: 26, title: "Création d'une PKI personnalisée", icon: "🏛️", level: "intermediate", category: "Infrastructure", description: "Mettre en place une infrastructure à clés publiques pour gérer certificats et authentification.", tags: ["PKI", "Certificats", "CA"], details: "Déployez une autorité de certification (CA) avec OpenSSL. Émettez et révoquez des certificats pour vos services internes." },
+            { id: 27, title: "Développement d'un firewall custom", icon: "🛡️", level: "intermediate", category: "Infrastructure", description: "Créer un firewall personnalisé avec des fonctionnalités avancées de filtrage et d'analyse.", tags: ["Firewall", "Netfilter", "Custom"], details: "Développez un firewall applicatif en C ou Python utilisant netfilter. Ajoutez des fonctionnalités de DPI (Deep Packet Inspection)." },
+            { id: 28, title: "Sécurisation des protocoles de routage", icon: "🗺️", level: "intermediate", category: "Infrastructure", description: "Protéger les protocoles BGP, OSPF contre les attaques de détournement de routes.", tags: ["Routage", "BGP", "OSPF"], details: "Implémentez l'authentification MD5 sur OSPF et sécurisez BGP avec RPKI. Détectez les annonces de routes malveillantes." },
+            { id: 29, title: "IDS basés sur Machine Learning", icon: "🤖", level: "intermediate", category: "Threat Intelligence", description: "Développer des systèmes de détection d'intrusion utilisant l'apprentissage automatique pour identifier les anomalies.", tags: ["ML", "IDS", "IA"], details: "Créez un modèle ML avec scikit-learn ou TensorFlow pour détecter les comportements réseau anormaux basés sur des patterns." },
+            { id: 30, title: "Web scraping du dark web éthique", icon: "🕸️", level: "intermediate", category: "Threat Intelligence", description: "Collecter des informations sur le dark web à des fins de recherche en sécurité et threat intelligence.", tags: ["Dark Web", "OSINT", "Threat Intel"], details: "Utilisez Tor et Beautiful Soup pour scraper des forums clandestins. Identifiez les menaces émergentes et les données compromises." },
+            { id: 31, title: "Détection de menaces via IA", icon: "🧠", level: "intermediate", category: "Threat Intelligence", description: "Utiliser l'intelligence artificielle pour prédire et détecter les cyberattaques avant qu'elles ne se produisent.", tags: ["IA", "Prédiction", "Menaces"], details: "Entraînez des modèles sur des datasets d'attaques (NSL-KDD, CICIDS). Implémentez la détection en temps réel avec des réseaux de neurones." },
+            { id: 32, title: "Développement d'outils de pentest", icon: "⚔️", level: "intermediate", category: "Threat Intelligence", description: "Créer des outils personnalisés pour automatiser les tests d'intrusion et identifier les vulnérabilités.", tags: ["Pentest", "Automation", "Tools"], details: "Développez des scripts Python pour l'énumération, l'exploitation et le post-exploitation. Créez votre framework de pentest personnalisé." },
+            { id: 33, title: "Messagerie chiffrée end-to-end", icon: "💬", level: "intermediate", category: "Sécurité applicative", description: "Développer une application de messagerie sécurisée avec chiffrement de bout en bout type Signal.", tags: ["E2E", "Messagerie", "Signal"], details: "Implémentez le protocole Signal ou Double Ratchet. Assurez la perfect forward secrecy et l'authentification des messages." },
+            { id: 34, title: "Audit de smart contracts blockchain", icon: "⛓️", level: "intermediate", category: "Sécurité applicative", description: "Analyser des smart contracts Ethereum/Solidity pour détecter les vulnérabilités et failles de sécurité.", tags: ["Blockchain", "Solidity", "Audit"], details: "Utilisez Mythril et Slither pour auditer les smart contracts. Identifiez les reentrancy attacks, overflow et autres vulnérabilités courantes." },
+            { id: 35, title: "Wallet crypto sécurisé", icon: "👛", level: "intermediate", category: "Sécurité applicative", description: "Créer un portefeuille de cryptomonnaies avec des fonctionnalités de sécurité avancées.", tags: ["Wallet", "Crypto", "HD Wallet"], details: "Développez un wallet HD (Hierarchical Deterministic) avec BIP39/BIP44. Implémentez le stockage sécurisé des clés privées et multi-signature." },
+            { id: 36, title: "Simulation d'attaques DDoS", icon: "💣", level: "intermediate", category: "Tests & Simulation", description: "Créer un environnement contrôlé pour tester la résilience face aux attaques par déni de service.", tags: ["DDoS", "Stress Test", "Simulation"], details: "Utilisez LOIC, Slowloris ou développez vos propres outils. Testez vos mécanismes de protection contre les attaques volumétriques et applicatives." },
+            { id: 37, title: "Création de scénarios cyber range", icon: "🎮", level: "intermediate", category: "Tests & Simulation", description: "Développer des exercices pratiques et challenges CTF pour former aux techniques de cybersécurité.", tags: ["CTF", "Cyber Range", "Formation"], details: "Créez des machines vulnérables avec des flags cachés. Utilisez Docker pour déployer des environnements de challenge isolés." },
+            { id: 38, title: "Recherche de vulnérabilités zero-day", icon: "🔎", level: "intermediate", category: "Tests & Simulation", description: "Méthodologie de recherche proactive de vulnérabilités inconnues dans les logiciels et systèmes.", tags: ["Zero-day", "Bug Bounty", "Fuzzing"], details: "Utilisez le fuzzing avec AFL ou LibFuzzer. Analysez le code source et pratiquez la divulgation responsable via des programmes bug bounty." },
+            { id: 39, title: "Sécurité des systèmes ICS/SCADA", icon: "🏭", level: "intermediate", category: "Sécurité industrielle", description: "Analyser et sécuriser les systèmes de contrôle industriel contre les cyberattaques.", tags: ["SCADA", "ICS", "Industrie"], details: "Étudiez les protocoles Modbus, DNP3. Utilisez des outils comme Nmap avec des scripts NSE pour auditer les systèmes SCADA." },
+            { id: 40, title: "Audit de sécurité IoT", icon: "💡", level: "intermediate", category: "Sécurité industrielle", description: "Évaluer la sécurité des objets connectés et identifier les vulnérabilités dans les dispositifs IoT.", tags: ["IoT", "Audit", "Connected Devices"], details: "Analysez les communications MQTT, CoAP. Testez les firmwares, les APIs et les protocoles de communication des objets connectés." },
+            { id: 41, title: "Analyse de malwares APT", icon: "🎯", level: "intermediate", category: "Techniques avancées", description: "Étudier les malwares utilisés dans les menaces persistantes avancées (APT) par des acteurs étatiques.", tags: ["APT", "Advanced Malware", "State-sponsored"], details: "Analysez des campagnes APT connues (APT28, Lazarus). Comprenez les techniques de persistence, exfiltration et command & control." },
+            { id: 42, title: "Détection d'attaques in-memory", icon: "🧩", level: "intermediate", category: "Techniques avancées", description: "Identifier les attaques fileless qui s'exécutent uniquement en mémoire sans toucher le disque.", tags: ["Fileless", "Memory", "Detection"], details: "Utilisez Volatility pour l'analyse mémoire. Détectez les injections de code, hooks et malwares résidents en RAM." },
+            { id: 43, title: "Détection de backdoors kernel", icon: "🚪", level: "intermediate", category: "Techniques avancées", description: "Repérer les backdoors implantés au niveau du noyau du système d'exploitation.", tags: ["Kernel", "Backdoor", "Rootkit"], details: "Analysez les modules kernel chargés, les syscalls hooks et les modifications du kernel. Utilisez des outils comme GMER et IceSword." },
+            { id: 44, title: "Attaques par canaux auxiliaires", icon: "📊", level: "intermediate", category: "Techniques avancées", description: "Étudier les side-channel attacks exploitant les fuites d'informations physiques (timing, consommation).", tags: ["Side-channel", "Timing", "Power Analysis"], details: "Comprenez les attaques timing, cache et power analysis. Expérimentez avec des attaques sur des implémentations cryptographiques." },
+            { id: 45, title: "Création et suppression de rootkits", icon: "🗑️", level: "intermediate", category: "Techniques avancées", description: "Développer des rootkits à but éducatif et apprendre à les détecter et supprimer.", tags: ["Rootkit", "Development", "Removal"], details: "Créez un rootkit kernel simple sous Linux. Apprenez les techniques de dissimulation et comment les systèmes de détection les identifient." },
+
+            // Projets Avancés
+            { id: 46, title: "Monitoring sécurité cloud AWS/Azure", icon: "☁️", level: "advanced", category: "Cloud", description: "Surveiller et sécuriser les infrastructures cloud avec des outils de détection et de réponse automatisés.", tags: ["AWS", "Azure", "Cloud Security"], details: "Utilisez AWS GuardDuty, Azure Sentinel. Configurez CloudTrail, implémentez des Lambda functions pour la réponse automatique aux incidents." },
+            { id: 47, title: "Implémentation Zero Trust", icon: "🎯", level: "advanced", category: "Cloud", description: "Déployer une architecture Zero Trust ne faisant confiance à aucun utilisateur ou dispositif par défaut.", tags: ["Zero Trust", "Architecture", "BeyondCorp"], details: "Implémentez une segmentation micro-périmètre, authentification continue et least privilege access. Utilisez des solutions comme BeyondCorp." },
+            { id: 48, title: "Sécurisation de conteneurs", icon: "🐳", level: "advanced", category: "Cloud", description: "Protéger les environnements Docker et Kubernetes contre les vulnérabilités et les mauvaises configurations.", tags: ["Docker", "Kubernetes", "Containers"], details: "Scannez les images avec Trivy, implémentez des policies avec OPA, configurez les network policies Kubernetes et le hardening des pods." },
+            { id: 49, title: "Sécurisation d'APIs OAuth/JWT", icon: "🔑", level: "advanced", category: "Cloud", description: "Implémenter une authentification et autorisation robuste pour les APIs avec OAuth 2.0 et JWT.", tags: ["OAuth", "JWT", "API Security"], details: "Développez une solution complète avec refresh tokens, validation de claims, protection contre les attaques de replay et la falsification de tokens." },
+            { id: 50, title: "Modèles IA de prédiction de menaces", icon: "🔮", level: "advanced", category: "IA & Prédiction", description: "Créer des modèles d'intelligence artificielle pour anticiper les cyberattaques futures.", tags: ["IA", "Prédiction", "Threat Modeling"], details: "Utilisez des réseaux de neurones récurrents (LSTM) pour analyser les patterns d'attaques historiques et prédire les futures campagnes malveillantes." },
+            { id: 51, title: "Détection de ransomware par ML", icon: "🚫", level: "advanced", category: "IA & Prédiction", description: "Développer un système de détection précoce de ransomwares basé sur l'apprentissage automatique.", tags: ["Ransomware", "ML", "Détection"], details: "Entraînez un modèle sur les comportements typiques des ransomwares (encryption patterns, file access). Détectez et bloquez en temps réel." },
+            { id: 52, title: "Automatisation de scans de vulnérabilités", icon: "⚙️", level: "advanced", category: "IA & Prédiction", description: "Créer un pipeline CI/CD intégrant des scans de sécurité automatisés et intelligents.", tags: ["Automation", "DevSecOps", "CI/CD"], details: "Intégrez SAST, DAST et SCA dans votre pipeline. Utilisez des outils comme SonarQube, OWASP Dependency-Check et automatisez avec Jenkins." },
+            { id: 53, title: "Cryptographie quantique fondamentaux", icon: "⚛️", level: "advanced", category: "Technologies émergentes", description: "Explorer les principes de la cryptographie post-quantique pour résister aux ordinateurs quantiques.", tags: ["Quantique", "Post-Quantum", "Crypto"], details: "Étudiez les algorithmes résistants au quantique (lattice-based, hash-based). Comprenez la distribution quantique de clés (QKD)." },
+            { id: 54, title: "Sécurité des véhicules autonomes", icon: "🚗", level: "advanced", category: "Technologies émergentes", description: "Analyser les risques de cybersécurité des véhicules connectés et autonomes.", tags: ["Automotive", "CAN Bus", "V2X"], details: "Auditez les protocoles CAN bus, étudiez les vulnérabilités des ECUs et les attaques sur les systèmes de communication V2V/V2X." },
+            { id: 55, title: "Vulnérabilités blockchain", icon: "🔗", level: "advanced", category: "Technologies émergentes", description: "Identifier et exploiter les failles dans les protocoles blockchain et les contrats intelligents.", tags: ["Blockchain", "51% Attack", "Consensus"], details: "Analysez les attaques de double-dépense, 51% attacks, selfish mining et les vulnérabilités des protocoles de consensus (PoW, PoS)." },
+            { id: 56, title: "Dashboards Splunk pour analyse de logs", icon: "📊", level: "advanced", category: "SIEM", description: "Créer des tableaux de bord avancés pour la corrélation et l'analyse de logs de sécurité.", tags: ["Splunk", "SIEM", "Logs"], details: "Développez des dashboards temps réel avec Splunk. Créez des alertes intelligentes basées sur la corrélation d'événements multi-sources." },
+            { id: 57, title: "Threat intelligence avancée", icon: "🕵️‍♂️", level: "advanced", category: "SIEM", description: "Développer des méthodologies de threat intelligence tactique, opérationnelle et stratégique.", tags: ["Threat Intel", "MITRE ATT&CK", "IOC"], details: "Utilisez le framework MITRE ATT&CK pour mapper les tactiques adverses. Créez des feeds de IOCs et automatisez l'enrichissement des alertes." },
+            { id: 58, title: "Reverse engineering défensif", icon: "🛡️", level: "advanced", category: "SIEM", description: "Analyser des malwares sophistiqués pour créer des signatures de détection et des contre-mesures.", tags: ["Reverse", "Ghidra", "IDA Pro"], details: "Maîtrisez Ghidra et IDA Pro pour décompiler des binaires complexes. Créez des règles YARA et des signatures antivirus basées sur votre analyse." },
+            { id: 59, title: "Sécurité SCADA critique", icon: "⚡", level: "advanced", category: "Systèmes critiques", description: "Protéger les infrastructures critiques (énergie, eau) contre les cyberattaques de type Stuxnet.", tags: ["SCADA", "ICS", "Infrastructure"], details: "Implémentez la défense en profondeur pour les systèmes SCADA. Segmentez les réseaux, surveillez les protocoles industriels et déployez des IDS spécialisés." },
+            { id: 60, title: "Authentification biométrique avancée", icon: "👁️", level: "advanced", category: "Systèmes critiques", description: "Développer des systèmes d'authentification multi-facteurs intégrant la biométrie de façon sécurisée.", tags: ["Biométrie", "MFA", "Liveness"], details: "Implémentez la reconnaissance faciale, empreintes digitales avec liveness detection. Protégez contre les attaques de spoofing biométrique." },
+            { id: 61, title: "Stéganographie et détection", icon: "🖼️", level: "advanced", category: "Systèmes critiques", description: "Cacher et détecter des données secrètes dans des fichiers multimédias (images, audio, vidéo).", tags: ["Stégano", "Data Hiding", "Steganalysis"], details: "Utilisez des techniques LSB, DCT pour cacher des données. Développez des algorithmes de stéganalyse pour détecter les messages cachés." },
+            { id: 62, title: "Exercices Red Team / Blue Team", icon: "⚔️🛡️", level: "advanced", category: "Red/Blue Team", description: "Organiser des exercices d'attaque et de défense simulant des scénarios réalistes d'APT.", tags: ["Red Team", "Blue Team", "Purple Team"], details: "Simulez des intrusions complètes (reconnaissance, exploitation, persistence, exfiltration) et défendez en temps réel avec détection, réponse et remédiation." },
+            { id: 63, title: "Audit de smart home devices", icon: "🏠", level: "advanced", category: "Red/Blue Team", description: "Évaluer la sécurité des dispositifs domotiques intelligents (assistants vocaux, caméras, serrures).", tags: ["Smart Home", "IoT", "Privacy"], details: "Interceptez les communications des appareils connectés. Testez les vulnérabilités des assistants vocaux et analysez leurs collectes de données." },
+            { id: 64, title: "Programme de formation en cybersécurité", icon: "🎓", level: "advanced", category: "Red/Blue Team", description: "Concevoir un curriculum complet de formation en cybersécurité pour entreprise ou académie.", tags: ["Formation", "Curriculum", "Éducation"], details: "Développez un programme progressif couvrant tous les domaines : réseau, système, crypto, pentest. Incluez labs pratiques et certifications." },
+            { id: 65, title: "Risques cyber sur réseaux sociaux", icon: "📱", level: "advanced", category: "Analyse de risques", description: "Analyser les menaces de sécurité liées à l'utilisation des réseaux sociaux (OSINT, social engineering).", tags: ["OSINT", "Social Media", "Privacy"], details: "Effectuez de la reconnaissance passive avec Maltego. Évaluez l'exposition aux attaques de spear-phishing basées sur les informations publiques." },
+            { id: 66, title: "Évaluation de sécurité multi-plateformes", icon: "💻", level: "advanced", category: "Analyse de risques", description: "Auditer la sécurité d'applications fonctionnant sur Windows, Linux, macOS, iOS et Android.", tags: ["Cross-platform", "Audit", "Mobile"], details: "Testez la sécurité sur toutes les plateformes. Identifiez les vulnérabilités spécifiques à chaque OS et les failles dans la synchronisation des données." },
+            { id: 67, title: "Bug Bounty et divulgation responsable", icon: "💰", level: "advanced", category: "Analyse de risques", description: "Participer à des programmes de bug bounty et maîtriser l'art de la divulgation responsable.", tags: ["Bug Bounty", "Responsible Disclosure", "HackerOne"], details: "Chassez les bugs sur HackerOne, BugCrowd. Rédigez des rapports professionnels et suivez les procédures de divulgation éthique." },
+            { id: 68, title: "Incident Response Automation", icon: "🤖", level: "advanced", category: "SOAR", description: "Automatiser la réponse aux incidents de sécurité avec des playbooks SOAR (Security Orchestration).", tags: ["SOAR", "Automation", "Incident Response"], details: "Développez des playbooks avec Phantom ou Demisto. Automatisez l'enrichissement des alertes, le confinement et la remédiation." },
+            { id: 69, title: "Threat Hunting proactif", icon: "🎯", level: "advanced", category: "SOAR", description: "Rechercher proactivement des menaces cachées dans votre infrastructure avant qu'elles ne causent des dommages.", tags: ["Threat Hunting", "Proactive", "EDR"], details: "Utilisez des hypothèses basées sur MITRE ATT&CK. Analysez les logs, comportements anormaux et IOCs avec des outils EDR et SIEM." },
+            { id: 70, title: "Cyber Threat Intelligence Platform", icon: "🌐", level: "advanced", category: "SOAR", description: "Construire une plateforme de threat intelligence centralisée agrégeant des feeds multiples.", tags: ["CTI", "MISP", "OpenCTI"], details: "Déployez MISP ou OpenCTI. Intégrez des feeds commerciaux et open-source. Automatisez le partage de IOCs et la corrélation avec vos événements." }
+        ];
+
+        let currentFilter = 'all';
+        let searchTerm = '';
+
+        function renderProjects() {
+            const grid = document.getElementById('projectsGrid');
+            grid.innerHTML = '';
+
+            const filteredProjects = projects.filter(project => {
+                const matchesFilter = currentFilter === 'all' || project.level === currentFilter;
+                const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    project.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    project.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+                return matchesFilter && matchesSearch;
+            });
+
+            document.getElementById('totalProjects').textContent = filteredProjects.length;
+
+            filteredProjects.forEach((project, index) => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.style.animationDelay = `${index * 0.05}s`;
+                
+                const levelClass = `level-${project.level}`;
+                const levelText = project.level === 'beginner' ? 'Débutant' : 
+                                project.level === 'intermediate' ? 'Intermédiaire' : 'Avancé';
+
+                card.innerHTML = `
+                    <div class="project-header">
+                        <div class="project-icon">${project.icon}</div>
+                        <div class="project-title">${project.title}</div>
+                    </div>
+                    <div class="category-badge ${levelClass}">${levelText} • ${project.category}</div>
+                    <div class="project-description">${project.description}</div>
+                    <div class="project-tags">
+                        ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                `;
+
+                card.addEventListener('click', () => openModal(project));
+                grid.appendChild(card);
+            });
+        }
+
+        function openModal(project) {
+            const modal = document.getElementById('projectModal');
+            const modalBody = document.getElementById('modalBody');
+            
+            const levelClass = `level-${project.level}`;
+            const levelText = project.level === 'beginner' ? 'Débutant' : 
+                            project.level === 'intermediate' ? 'Intermédiaire' : 'Avancé';
+
+            modalBody.innerHTML = `
+                <div class="project-header">
+                    <div class="project-icon" style="font-size: 3em;">${project.icon}</div>
+                    <div>
+                        <h2 style="color: #e94560; margin-bottom: 10px;">${project.title}</h2>
+                        <div class="category-badge ${levelClass}">${levelText} • ${project.category}</div>
+                    </div>
+                </div>
+                <h3 style="margin-top: 30px; color: #e94560;">📋 Description</h3>
+                <p style="margin: 15px 0; line-height: 1.8; color: #8d8d8d;">${project.description}</p>
+                
+                <h3 style="margin-top: 25px; color: #e94560;">🔍 Détails du projet</h3>
+                <p style="margin: 15px 0; line-height: 1.8; color: #8d8d8d;">${project.details}</p>
+                
+                <h3 style="margin-top: 25px; color: #e94560;">🏷️ Technologies & Compétences</h3>
+                <div class="project-tags" style="margin-top: 15px;">
+                    ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: linear-gradient(135deg, rgba(233, 69, 96, 0.1), rgba(209, 52, 83, 0.1)); border-radius: 10px; border-left: 4px solid #e94560;">
+                    <strong style="color: #e94560;">💡 Conseil :</strong> 
+                    <p style="margin-top: 10px; color: #8d8d8d;">
+                        ${getProjectTip(project.level)}
+                    </p>
+                </div>
+            `;
+
+            modal.style.display = 'block';
+        }
+
+        function getProjectTip(level) {
+            const tips = {
+                beginner: "Commencez par créer un environnement de lab virtuel sécurisé. Documentez chaque étape et n'hésitez pas à refaire plusieurs fois pour bien comprendre.",
+                intermediate: "Ce projet nécessite de bonnes bases. Consultez la documentation officielle des outils et rejoignez des communautés pour échanger sur les difficultés rencontrées.",
+                advanced: "Projet complexe qui demande de l'expérience. Décomposez-le en sous-tâches, testez en environnement isolé et gardez une trace de vos découvertes pour la communauté."
+            };
+            return tips[level];
+        }
+
+        function closeModal() {
+            document.getElementById('projectModal').style.display = 'none';
+        }
+
+        // Event listeners
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.getAttribute('data-level');
+                renderProjects();
+            });
+        });
+
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            searchTerm = e.target.value;
+            renderProjects();
+        });
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('projectModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+
+        // Initial render
+        renderProjects();
+    </script>
+</body>
+</html>
