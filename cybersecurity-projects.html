@@ -1,367 +1,167 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projets Cybersécurité - Portfolio Interactif</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>70 Security Projects · Viktor Santiago Fotso</title>
+<meta name="description" content="70 hands-on cyber security projects, from beginner to advanced, by Viktor Michel-Ange Santiago Fotso.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6f5f1; --surface: #ffffff; --ink: #15171a; --muted: #5d636b; --line: #e2e0d9;
+  --accent: #0f6e56; --accent-soft: #e3f0eb;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #0f1113; --surface: #171a1d; --ink: #e9eaeb; --muted: #9aa1a8; --line: #2a2e33; --accent: #4cc79d; --accent-soft: #15302a; }
+}
+:root[data-theme="dark"] { --bg: #0f1113; --surface: #171a1d; --ink: #e9eaeb; --muted: #9aa1a8; --line: #2a2e33; --accent: #4cc79d; --accent-soft: #15302a; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #f1f1f1;
-            min-height: 100vh;
-            padding: 20px;
-        }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+.mono { font-family: var(--mono); }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+header.nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+.brand { font-family: var(--mono); font-weight: 500; font-size: 15px; text-decoration: none; }
+.brand span { color: var(--accent); }
+.nav-right { display: flex; align-items: center; gap: 18px; }
+.back { font-size: 14.5px; color: var(--muted); text-decoration: none; }
+.back:hover { color: var(--ink); }
+.theme-btn { background: none; border: 1px solid var(--line); color: var(--muted); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: grid; place-items: center; }
+.theme-btn:hover { color: var(--ink); }
 
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            background: rgba(22, 33, 62, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-            margin-bottom: 40px;
-            animation: slideDown 0.8s ease;
-        }
+.hero { padding: 72px 0 40px; }
+.eyebrow { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: .04em; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+.eyebrow::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+h1 { font-size: clamp(34px, 5vw, 50px); line-height: 1.1; letter-spacing: -0.025em; font-weight: 700; margin-bottom: 18px; }
+.lede { font-size: 19px; color: var(--muted); max-width: 640px; }
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-top: 44px; }
+.stat { padding: 22px; border-left: 1px solid var(--line); }
+.stat:first-child { border-left: none; padding-left: 0; }
+.stat b { display: block; font-family: var(--mono); font-size: 28px; font-weight: 500; }
+.stat span { font-size: 14px; color: var(--muted); }
 
-        h1 {
-            font-size: 2.5em;
-            background: linear-gradient(135deg, #e94560, #d13453);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-        }
+.toolbar { position: sticky; top: 60px; z-index: 5; background: var(--bg); padding: 18px 0; border-bottom: 1px solid var(--line); margin-top: 32px; }
+.toolbar .wrap { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.seg button { font: inherit; font-size: 14px; padding: 7px 14px; border: none; background: none; color: var(--muted); cursor: pointer; border-left: 1px solid var(--line); }
+.seg button:first-child { border-left: none; }
+.seg button.on { background: var(--ink); color: var(--bg); }
+.seg button:not(.on):hover { color: var(--ink); }
+select, input[type=search] { font: inherit; font-size: 14.5px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); }
+input[type=search] { flex: 1; min-width: 180px; }
+select:focus, input:focus, .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.count { font-family: var(--mono); font-size: 13px; color: var(--muted); margin-left: auto; }
 
-        .subtitle {
-            color: #8d8d8d;
-            font-size: 1.1em;
-        }
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 28px 0 80px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; display: flex; flex-direction: column; transition: border-color .15s; }
+.card:hover { border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); }
+.meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.meta .num { color: var(--accent); }
+.lvl { padding: 2px 8px; border-radius: 5px; border: 1px solid var(--line); }
+.lvl.beginner::before, .lvl.intermediate::before, .lvl.advanced::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; background: var(--accent); }
+.lvl.intermediate::before { box-shadow: 8px 0 0 var(--accent); margin-right: 14px; }
+.lvl.advanced::before { box-shadow: 8px 0 0 var(--accent), 16px 0 0 var(--accent); margin-right: 22px; }
+.card h2 { font-size: 18.5px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; }
+.cat { font-size: 13.5px; color: var(--muted); margin-bottom: 10px; }
+.card p.desc { color: var(--muted); font-size: 15.5px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.tag { font-family: var(--mono); font-size: 12px; padding: 3px 9px; border-radius: 5px; background: var(--accent-soft); color: var(--accent); }
+.card details { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 12px; }
+.card summary { cursor: pointer; font-size: 14px; color: var(--accent); list-style: none; font-weight: 500; }
+.card summary::-webkit-details-marker { display: none; }
+.card summary::after { content: ' +'; font-family: var(--mono); }
+.card details[open] summary::after { content: ' −'; }
+.card details p { margin-top: 8px; font-size: 15px; color: var(--muted); }
+.empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 48px 0; }
 
-        .filter-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
+footer { border-top: 1px solid var(--line); padding: 24px 0 40px; font-size: 13.5px; color: var(--muted); }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+footer a { color: var(--accent); text-decoration: none; }
 
-        .filter-btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 25px;
-            background: rgba(22, 33, 62, 0.9);
-            color: #f1f1f1;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .filter-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
-            background: rgba(15, 52, 96, 0.9);
-        }
-
-        .filter-btn.active {
-            background: linear-gradient(135deg, #e94560, #d13453);
-            color: white;
-        }
-
-        .search-box {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        #searchInput {
-            padding: 15px 25px;
-            width: 100%;
-            max-width: 500px;
-            border: none;
-            border-radius: 25px;
-            font-size: 1em;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            background: rgba(22, 33, 62, 0.95);
-            color: #f1f1f1;
-        }
-
-        #searchInput::placeholder {
-            color: #8d8d8d;
-        }
-
-        #searchInput:focus {
-            outline: none;
-            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.3);
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .project-card {
-            background: rgba(22, 33, 62, 0.95);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            animation: fadeIn 0.6s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.3);
-        }
-
-        .project-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .project-icon {
-            font-size: 2em;
-            margin-right: 15px;
-        }
-
-        .project-title {
-            font-size: 1.3em;
-            font-weight: 700;
-            color: #e94560;
-        }
-
-        .category-badge {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 15px;
-            font-size: 0.85em;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .level-beginner {
-            background: linear-gradient(135deg, #0f3460, #16213e);
-            color: #84fab0;
-        }
-
-        .level-intermediate {
-            background: linear-gradient(135deg, #0f3460, #16213e);
-            color: #fccb90;
-        }
-
-        .level-advanced {
-            background: linear-gradient(135deg, #e94560, #d13453);
-            color: #fff;
-        }
-
-        .project-description {
-            color: #8d8d8d;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag {
-            padding: 5px 12px;
-            background: #0f3460;
-            border-radius: 12px;
-            font-size: 0.85em;
-            color: #f1f1f1;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-content {
-            position: relative;
-            background: #16213e;
-            margin: 50px auto;
-            padding: 40px;
-            max-width: 700px;
-            border-radius: 20px;
-            max-height: 80vh;
-            overflow-y: auto;
-            animation: slideUp 0.4s ease;
-            color: #f1f1f1;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 2em;
-            cursor: pointer;
-            color: #8d8d8d;
-            transition: color 0.3s ease;
-        }
-
-        .close-modal:hover {
-            color: #e94560;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            background: rgba(22, 33, 62, 0.95);
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: 700;
-            background: linear-gradient(135deg, #e94560, #d13453);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-label {
-            color: #8d8d8d;
-            margin-top: 5px;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8em;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .filter-buttons {
-                flex-direction: column;
-            }
-
-            .filter-btn {
-                width: 100%;
-            }
-        }
-    </style>
+@media (max-width: 860px) {
+  .hero { padding: 44px 0 28px; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(3) { border-left: none; padding-left: 0; }
+  .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .grid { grid-template-columns: 1fr; }
+  .toolbar { position: static; }
+  .count { margin-left: 0; width: 100%; }
+}
+@media (max-width: 480px) {
+  .wrap { padding: 0 16px; }
+  .seg { width: 100%; }
+  .seg button { flex: 1; padding: 7px 6px; font-size: 13px; }
+  select, input[type=search] { width: 100%; }
+  .back span { display: none; }
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🛡️ Portfolio Cybersécurité</h1>
-            <p class="subtitle">70 projets pour maîtriser la sécurité informatique</p>
-        </header>
 
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="🔍 Rechercher un projet...">
-        </div>
-
-        <div class="filter-buttons">
-            <button class="filter-btn active" data-level="all">Tous les projets</button>
-            <button class="filter-btn" data-level="beginner">Débutant (1-25)</button>
-            <button class="filter-btn" data-level="intermediate">Intermédiaire (26-50)</button>
-            <button class="filter-btn" data-level="advanced">Avancé (51-70)</button>
-        </div>
-
-        <div class="projects-grid" id="projectsGrid"></div>
-
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-number" id="totalProjects">70</div>
-                <div class="stat-label">Projets Total</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">25</div>
-                <div class="stat-label">Niveau Débutant</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">25</div>
-                <div class="stat-label">Niveau Intermédiaire</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">20</div>
-                <div class="stat-label">Niveau Avancé</div>
-            </div>
-        </div>
+<header class="nav">
+  <div class="wrap">
+    <a href="portfolio.html" class="brand">santiago<span>@</span>fotso</a>
+    <div class="nav-right">
+      <a href="portfolio.html" class="back">← <span>Back to </span>portfolio</a>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle colour theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
     </div>
+  </div>
+</header>
 
-    <div class="modal" id="projectModal">
-        <div class="modal-content" id="modalContent">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div id="modalBody"></div>
-        </div>
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Project portfolio</p>
+      <h1>70 hands-on security projects</h1>
+      <p class="lede">A progressive set of practical projects across detection, infrastructure, cryptography, forensics, cloud, threat intelligence and Red Team / Blue Team work, from beginner to advanced.</p>
+      <div class="stats">
+        <div class="stat"><b id="sTotal">70</b><span>projects</span></div>
+        <div class="stat"><b id="sBeg">–</b><span>beginner</span></div>
+        <div class="stat"><b id="sInt">–</b><span>intermediate</span></div>
+        <div class="stat"><b id="sAdv">–</b><span>advanced</span></div>
+      </div>
     </div>
+  </section>
 
-    <script>
-        const projects = [
+  <div class="toolbar">
+    <div class="wrap">
+      <div class="seg" role="group" aria-label="Filter by level">
+        <button class="on" data-level="all">All</button>
+        <button data-level="beginner">Beginner</button>
+        <button data-level="intermediate">Intermediate</button>
+        <button data-level="advanced">Advanced</button>
+      </div>
+      <select id="cat" aria-label="Filter by category"><option value="">All categories</option></select>
+      <input type="search" id="q" placeholder="Search projects, tools, topics…" aria-label="Search projects">
+      <span class="count" id="count"></span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="grid" id="grid"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Viktor Michel-Ange Santiago Fotso</span>
+    <a href="portfolio.html">santiagovmf.github.io</a>
+  </div>
+</footer>
+
+<script>
+const projects = [
             // Projets Débutants
             { id: 1, title: "Mise en place de honeypots", icon: "🍯", level: "beginner", category: "Détection & Analyse", description: "Déployer des systèmes leurres pour observer et analyser les tentatives d'intrusion en temps réel. Étudier les comportements des attaquants.", tags: ["Honeypot", "Analyse", "Intrusion"], details: "Apprenez à configurer des honeypots comme Honeyd ou Cowrie pour capturer et analyser les activités malveillantes. Découvrez comment les attaquants repèrent et exploitent les vulnérabilités." },
             { id: 2, title: "Sniffing réseau avec Wireshark", icon: "📡", level: "beginner", category: "Détection & Analyse", description: "Capturer et analyser le trafic réseau pour détecter des anomalies, comprendre les protocoles et identifier les menaces.", tags: ["Wireshark", "Réseau", "Analyse"], details: "Maîtrisez l'art de la capture de paquets. Analysez les protocoles TCP/IP, HTTP, DNS et détectez les communications suspectes ou non chiffrées." },
@@ -439,125 +239,63 @@
             { id: 70, title: "Cyber Threat Intelligence Platform", icon: "🌐", level: "advanced", category: "SOAR", description: "Construire une plateforme de threat intelligence centralisée agrégeant des feeds multiples.", tags: ["CTI", "MISP", "OpenCTI"], details: "Déployez MISP ou OpenCTI. Intégrez des feeds commerciaux et open-source. Automatisez le partage de IOCs et la corrélation avec vos événements." }
         ];
 
-        let currentFilter = 'all';
-        let searchTerm = '';
+(function () {
+  var root = document.documentElement;
+  try { var t = localStorage.getItem('theme'); if (t) root.setAttribute('data-theme', t); } catch (e) {}
+  document.getElementById('themeBtn').addEventListener('click', function () {
+    var cur = root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var next = cur === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
 
-        function renderProjects() {
-            const grid = document.getElementById('projectsGrid');
-            grid.innerHTML = '';
+  var LEVELS = { beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced' };
+  var state = { level: 'all', cat: '', q: '' };
+  var grid = document.getElementById('grid'), count = document.getElementById('count');
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
 
-            const filteredProjects = projects.filter(project => {
-                const matchesFilter = currentFilter === 'all' || project.level === currentFilter;
-                const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                    project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                    project.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                    project.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-                return matchesFilter && matchesSearch;
-            });
+  var n = function (l) { return projects.filter(function (p) { return p.level === l; }).length; };
+  document.getElementById('sTotal').textContent = projects.length;
+  document.getElementById('sBeg').textContent = n('beginner');
+  document.getElementById('sInt').textContent = n('intermediate');
+  document.getElementById('sAdv').textContent = n('advanced');
 
-            document.getElementById('totalProjects').textContent = filteredProjects.length;
+  var sel = document.getElementById('cat');
+  Array.from(new Set(projects.map(function (p) { return p.category; }))).sort(function (a, b) { return a.localeCompare(b); }).forEach(function (c) {
+    var o = document.createElement('option'); o.value = c; o.textContent = c; sel.appendChild(o);
+  });
 
-            filteredProjects.forEach((project, index) => {
-                const card = document.createElement('div');
-                card.className = 'project-card';
-                card.style.animationDelay = `${index * 0.05}s`;
-                
-                const levelClass = `level-${project.level}`;
-                const levelText = project.level === 'beginner' ? 'Débutant' : 
-                                project.level === 'intermediate' ? 'Intermédiaire' : 'Avancé';
+  function render() {
+    var q = state.q.toLowerCase();
+    var list = projects.filter(function (p) {
+      if (state.level !== 'all' && p.level !== state.level) return false;
+      if (state.cat && p.category !== state.cat) return false;
+      if (q && (p.title + ' ' + p.description + ' ' + p.category + ' ' + p.tags.join(' ') + ' ' + p.details).toLowerCase().indexOf(q) < 0) return false;
+      return true;
+    });
+    count.textContent = list.length + ' of ' + projects.length + ' projects';
+    grid.innerHTML = list.length ? list.map(function (p) {
+      return '<article class="card">' +
+        '<div class="meta"><span class="num">#' + String(p.id).padStart(2, '0') + '</span><span class="lvl ' + p.level + '">' + LEVELS[p.level] + '</span></div>' +
+        '<h2>' + esc(p.title) + '</h2>' +
+        '<div class="cat">' + esc(p.category) + '</div>' +
+        '<p class="desc">' + esc(p.description) + '</p>' +
+        '<div class="tags">' + p.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>' +
+        '<details><summary>Details</summary><p>' + esc(p.details) + '</p></details>' +
+        '</article>';
+    }).join('') : '<p class="empty">No project matches these filters.</p>';
+  }
 
-                card.innerHTML = `
-                    <div class="project-header">
-                        <div class="project-icon">${project.icon}</div>
-                        <div class="project-title">${project.title}</div>
-                    </div>
-                    <div class="category-badge ${levelClass}">${levelText} • ${project.category}</div>
-                    <div class="project-description">${project.description}</div>
-                    <div class="project-tags">
-                        ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                    </div>
-                `;
-
-                card.addEventListener('click', () => openModal(project));
-                grid.appendChild(card);
-            });
-        }
-
-        function openModal(project) {
-            const modal = document.getElementById('projectModal');
-            const modalBody = document.getElementById('modalBody');
-            
-            const levelClass = `level-${project.level}`;
-            const levelText = project.level === 'beginner' ? 'Débutant' : 
-                            project.level === 'intermediate' ? 'Intermédiaire' : 'Avancé';
-
-            modalBody.innerHTML = `
-                <div class="project-header">
-                    <div class="project-icon" style="font-size: 3em;">${project.icon}</div>
-                    <div>
-                        <h2 style="color: #e94560; margin-bottom: 10px;">${project.title}</h2>
-                        <div class="category-badge ${levelClass}">${levelText} • ${project.category}</div>
-                    </div>
-                </div>
-                <h3 style="margin-top: 30px; color: #e94560;">📋 Description</h3>
-                <p style="margin: 15px 0; line-height: 1.8; color: #8d8d8d;">${project.description}</p>
-                
-                <h3 style="margin-top: 25px; color: #e94560;">🔍 Détails du projet</h3>
-                <p style="margin: 15px 0; line-height: 1.8; color: #8d8d8d;">${project.details}</p>
-                
-                <h3 style="margin-top: 25px; color: #e94560;">🏷️ Technologies & Compétences</h3>
-                <div class="project-tags" style="margin-top: 15px;">
-                    ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                </div>
-
-                <div style="margin-top: 30px; padding: 20px; background: linear-gradient(135deg, rgba(233, 69, 96, 0.1), rgba(209, 52, 83, 0.1)); border-radius: 10px; border-left: 4px solid #e94560;">
-                    <strong style="color: #e94560;">💡 Conseil :</strong> 
-                    <p style="margin-top: 10px; color: #8d8d8d;">
-                        ${getProjectTip(project.level)}
-                    </p>
-                </div>
-            `;
-
-            modal.style.display = 'block';
-        }
-
-        function getProjectTip(level) {
-            const tips = {
-                beginner: "Commencez par créer un environnement de lab virtuel sécurisé. Documentez chaque étape et n'hésitez pas à refaire plusieurs fois pour bien comprendre.",
-                intermediate: "Ce projet nécessite de bonnes bases. Consultez la documentation officielle des outils et rejoignez des communautés pour échanger sur les difficultés rencontrées.",
-                advanced: "Projet complexe qui demande de l'expérience. Décomposez-le en sous-tâches, testez en environnement isolé et gardez une trace de vos découvertes pour la communauté."
-            };
-            return tips[level];
-        }
-
-        function closeModal() {
-            document.getElementById('projectModal').style.display = 'none';
-        }
-
-        // Event listeners
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentFilter = this.getAttribute('data-level');
-                renderProjects();
-            });
-        });
-
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            searchTerm = e.target.value;
-            renderProjects();
-        });
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('projectModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
-
-        // Initial render
-        renderProjects();
-    </script>
+  document.querySelectorAll('.seg button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.seg button').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on'); state.level = b.dataset.level; render();
+    });
+  });
+  sel.addEventListener('change', function () { state.cat = sel.value; render(); });
+  document.getElementById('q').addEventListener('input', function (e) { state.q = e.target.value.trim(); render(); });
+  render();
+})();
+</script>
 </body>
 </html>
