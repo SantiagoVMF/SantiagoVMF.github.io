@@ -1,917 +1,415 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viktor Fotso - Portfolio Cybersécurité</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #1a1a2e;
-            --secondary-color: #16213e;
-            --accent-color: #0f3460;
-            --highlight-color: #e94560;
-            --text-color: #f1f1f1;
-            --light-gray: #8d8d8d;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background-color: var(--secondary-color);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--highlight-color);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li {
-            margin-left: 30px;
-        }
-
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--highlight-color);
-        }
-
-        .burger {
-            display: none;
-            cursor: pointer;
-        }
-
-        .burger div {
-            width: 25px;
-            height: 3px;
-            background-color: var(--text-color);
-            margin: 5px;
-            transition: all 0.3s ease;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 150px 0 100px;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--text-color);
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            color: var(--light-gray);
-        }
-
-        .highlight {
-            color: var(--highlight-color);
-            font-weight: 700;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--highlight-color);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-        }
-
-        .btn:hover {
-            background-color: #d13453;
-        }
-
-        /* Sections */
-        section {
-            padding: 100px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-            font-size: 2.5rem;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background-color: var(--highlight-color);
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* About */
-        .about-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .about-text {
-            flex: 1;
-            min-width: 300px;
-            padding-right: 30px;
-        }
-
-        .about-image {
-            flex: 1;
-            min-width: 300px;
-            text-align: center;
-        }
-
-        .profile-img {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid var(--accent-color);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Skills */
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .skill-category {
-            background-color: var(--secondary-color);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .skill-category h3 {
-            color: var(--highlight-color);
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-
-        .skill-item {
-            margin-bottom: 15px;
-        }
-
-        .skill-name {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-
-        .skill-bar {
-            height: 10px;
-            background-color: var(--primary-color);
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .skill-level {
-            height: 100%;
-            background-color: var(--highlight-color);
-            border-radius: 5px;
-        }
-
-        /* Experience */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background-color: var(--accent-color);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
-        }
-
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
-            box-sizing: border-box;
-        }
-
-        .timeline-item:nth-child(odd) {
-            left: 0;
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 50%;
-        }
-
-        .timeline-content {
-            padding: 20px 30px;
-            background-color: var(--secondary-color);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .timeline-date {
-            font-weight: 600;
-            color: var(--highlight-color);
-            margin-bottom: 10px;
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: var(--highlight-color);
-            border-radius: 50%;
-            top: 20px;
-            z-index: 1;
-        }
-
-        .timeline-item:nth-child(odd)::after {
-            right: -10px;
-        }
-
-        .timeline-item:nth-child(even)::after {
-            left: -10px;
-        }
-
-        /* Projects */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background-color: var(--secondary-color);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .project-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .project-content {
-            padding: 20px;
-        }
-
-        .project-title {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--highlight-color);
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-
-        .tag {
-            background-color: var(--accent-color);
-            color: var(--text-color);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-right: 5px;
-            margin-bottom: 5px;
-        }
-
-        /* Contact */
-        .contact-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        .contact-info {
-            flex: 1;
-            min-width: 300px;
-            padding-right: 30px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background-color: var(--accent-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            color: var(--highlight-color);
-            font-size: 1.2rem;
-        }
-
-        .contact-form {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--secondary-color);
-            border: 1px solid var(--accent-color);
-            border-radius: 5px;
-            color: var(--text-color);
-            font-size: 1rem;
-        }
-
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--secondary-color);
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            background-color: var(--accent-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 10px;
-            color: var(--text-color);
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .social-link:hover {
-            background-color: var(--highlight-color);
-        }
-
-        .copyright {
-            color: var(--light-gray);
-            font-size: 0.9rem;
-        }
-
-        /* Responsive */
-        @media screen and (max-width: 768px) {
-            .nav-links {
-                position: absolute;
-                right: 0;
-                height: 92vh;
-                top: 8vh;
-                background-color: var(--secondary-color);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                width: 50%;
-                transform: translateX(100%);
-                transition: transform 0.5s ease-in;
-                z-index: 1;
-            }
-
-            .nav-links li {
-                opacity: 0;
-                margin: 20px 0;
-            }
-
-            .burger {
-                display: block;
-            }
-
-            .timeline::after {
-                left: 31px;
-            }
-
-            .timeline-item {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-
-            .timeline-item:nth-child(even) {
-                left: 0;
-            }
-
-            .timeline-item::after {
-                left: 21px;
-            }
-
-            .timeline-item:nth-child(odd)::after,
-            .timeline-item:nth-child(even)::after {
-                left: 21px;
-            }
-        }
-
-        .nav-active {
-            transform: translateX(0%);
-        }
-
-        @keyframes navLinkFade {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .toggle .line1 {
-            transform: rotate(-45deg) translate(-5px, 6px);
-        }
-
-        .toggle .line2 {
-            opacity: 0;
-        }
-
-        .toggle .line3 {
-            transform: rotate(45deg) translate(-5px, -6px);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viktor Santiago Fotso · Cyber Security</title>
+<meta name="description" content="Viktor Michel-Ange Santiago Fotso, MSc Cyber Security student at Lancaster University. Penetration testing, incident investigation and bug bounty research.">
+<meta property="og:title" content="Viktor Santiago Fotso · Cyber Security">
+<meta property="og:description" content="MSc Cyber Security student at Lancaster University. Penetration testing, incident investigation and bug bounty research.">
+<meta property="og:image" content="https://santiagovmf.github.io/assets/profile.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6f5f1;
+  --surface: #ffffff;
+  --ink: #15171a;
+  --muted: #5d636b;
+  --line: #e2e0d9;
+  --accent: #0f6e56;
+  --accent-soft: #e3f0eb;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1113; --surface: #171a1d; --ink: #e9eaeb; --muted: #9aa1a8;
+    --line: #2a2e33; --accent: #4cc79d; --accent-soft: #15302a;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1113; --surface: #171a1d; --ink: #e9eaeb; --muted: #9aa1a8;
+  --line: #2a2e33; --accent: #4cc79d; --accent-soft: #15302a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+.mono { font-family: var(--mono); }
+
+/* Nav */
+header.nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+.brand { font-family: var(--mono); font-weight: 500; font-size: 15px; text-decoration: none; letter-spacing: -0.01em; }
+.brand span { color: var(--accent); }
+.nav ul { display: flex; list-style: none; gap: 26px; align-items: center; }
+.nav ul a { text-decoration: none; font-size: 14.5px; color: var(--muted); transition: color .15s; }
+.nav ul a:hover { color: var(--ink); }
+.theme-btn { background: none; border: 1px solid var(--line); color: var(--muted); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: grid; place-items: center; }
+.theme-btn:hover { color: var(--ink); }
+.menu-btn { display: none; }
+
+/* Hero */
+.hero { padding: 88px 0 64px; }
+.hero-grid { display: grid; grid-template-columns: 1fr 280px; gap: 56px; align-items: center; }
+.eyebrow { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: .04em; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+.eyebrow::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+h1 { font-size: clamp(36px, 5.4vw, 56px); line-height: 1.08; letter-spacing: -0.025em; font-weight: 700; margin-bottom: 22px; }
+.lede { font-size: 19px; color: var(--muted); max-width: 590px; margin-bottom: 32px; }
+.lede strong { color: var(--ink); font-weight: 500; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 8px; font-size: 15px; font-weight: 500; text-decoration: none; border: 1px solid var(--ink); transition: transform .15s, background .15s; }
+.btn.primary { background: var(--ink); color: var(--bg); }
+.btn:hover { transform: translateY(-1px); }
+.portrait { width: 100%; height: auto; aspect-ratio: 4/5; object-fit: cover; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); }
+
+/* Stats */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.stat { padding: 26px 22px; border-left: 1px solid var(--line); }
+.stat:first-child { border-left: none; padding-left: 0; }
+.stat b { display: block; font-family: var(--mono); font-size: 30px; font-weight: 500; letter-spacing: -0.02em; }
+.stat span { font-size: 14px; color: var(--muted); line-height: 1.45; display: block; margin-top: 4px; }
+
+/* Sections */
+section.block { padding: 80px 0 0; }
+.sec-head { display: grid; grid-template-columns: 200px 1fr; gap: 40px; }
+.sec-label { font-family: var(--mono); font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; padding-top: 6px; }
+.sec-label i { font-style: normal; color: var(--accent); margin-right: 6px; }
+h2 { font-size: 28px; letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 28px; font-weight: 600; }
+.prose p { color: var(--muted); margin-bottom: 14px; max-width: 660px; }
+.prose p strong { color: var(--ink); font-weight: 500; }
+
+/* Experience */
+.role { display: grid; grid-template-columns: 1fr auto; gap: 4px 24px; padding: 24px 0; border-top: 1px solid var(--line); }
+.role:last-child { border-bottom: 1px solid var(--line); }
+.role h3 { font-size: 19px; font-weight: 600; }
+.role .org { color: var(--muted); font-size: 15.5px; }
+.role .when { font-family: var(--mono); font-size: 13px; color: var(--muted); text-align: right; white-space: nowrap; padding-top: 4px; }
+.role ul { grid-column: 1 / -1; list-style: none; margin-top: 12px; }
+.role li { position: relative; padding-left: 20px; color: var(--muted); margin-bottom: 6px; }
+.role li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-family: var(--mono); font-size: 14px; top: 1px; }
+.tags { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.tag { font-family: var(--mono); font-size: 12px; padding: 3px 9px; border-radius: 5px; background: var(--accent-soft); color: var(--accent); }
+
+/* Projects */
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; text-decoration: none; transition: border-color .15s, transform .15s; }
+a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.card .kind { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 12px; display: flex; justify-content: space-between; }
+.card h3 { font-size: 19px; font-weight: 600; margin-bottom: 8px; }
+.card p { color: var(--muted); font-size: 15.5px; flex: 1; }
+.card .tags { margin-top: 16px; }
+.card .go { color: var(--accent); }
+
+/* Education */
+.edu { display: grid; grid-template-columns: 1fr auto; padding: 18px 0; border-top: 1px solid var(--line); gap: 2px 24px; }
+.edu:last-child { border-bottom: 1px solid var(--line); }
+.edu h3 { font-size: 17px; font-weight: 600; }
+.edu p { color: var(--muted); font-size: 15.5px; }
+.edu .when { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; padding-top: 3px; }
+
+/* Certifications */
+.certs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 32px; }
+.cert { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 0; border-top: 1px solid var(--line); }
+.cert b { font-weight: 500; font-size: 16px; display: block; }
+.cert span { font-size: 14px; color: var(--muted); }
+.cert a { font-family: var(--mono); font-size: 12.5px; color: var(--accent); text-decoration: none; white-space: nowrap; }
+.cert a:hover { text-decoration: underline; }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 32px; }
+.skills h3 { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 14.5px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+
+/* Contact */
+.contact { padding: 96px 0 72px; }
+.contact-box { background: var(--ink); color: var(--bg); border-radius: 16px; padding: 48px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; }
+.contact-box h2 { margin-bottom: 12px; }
+.contact-box p { opacity: .72; }
+.links { display: grid; gap: 2px; }
+.links a, .links div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid color-mix(in srgb, var(--bg) 18%, transparent); text-decoration: none; font-size: 15.5px; }
+.links a:hover .v { text-decoration: underline; }
+.links .k { font-family: var(--mono); font-size: 12.5px; opacity: .6; padding-top: 3px; }
+.links .v { text-align: right; overflow-wrap: anywhere; }
+
+footer { border-top: 1px solid var(--line); padding: 24px 0 40px; font-size: 13.5px; color: var(--muted); }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+
+/* Responsive */
+@media (max-width: 860px) {
+  .hero { padding: 48px 0 40px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  .portrait { max-width: 220px; order: -1; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .stat { padding: 20px 16px; }
+  .stat:nth-child(3) { border-left: none; padding-left: 0; }
+  .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .stat:nth-child(2) { padding-right: 0; }
+  .sec-head { grid-template-columns: 1fr; gap: 6px; }
+  section.block { padding-top: 60px; }
+  .cards, .certs, .skills { grid-template-columns: 1fr; }
+  .contact-box { grid-template-columns: 1fr; padding: 32px 24px; }
+  .menu-btn { display: grid; }
+  .nav ul { display: none; position: absolute; top: 60px; left: 0; right: 0; flex-direction: column; gap: 0; background: var(--bg); border-bottom: 1px solid var(--line); padding: 8px 24px 16px; align-items: stretch; }
+  .nav ul.open { display: flex; }
+  .nav ul li a { display: block; padding: 10px 0; font-size: 16px; }
+  .nav-right { display: flex; gap: 8px; }
+}
+@media (max-width: 480px) {
+  .wrap { padding: 0 16px; }
+  .role { grid-template-columns: 1fr; }
+  .role .when { text-align: left; grid-row: 1; padding-top: 0; }
+  .edu { grid-template-columns: 1fr; }
+  .edu .when { grid-row: 1; }
+  .cert { flex-direction: column; gap: 4px; }
+}
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">Viktor Fotso</div>
-                <ul class="nav-links">
-                    <li><a href="#accueil">Accueil</a></li>
-                    <li><a href="#apropos">À propos</a></li>
-                    <li><a href="#competences">Compétences</a></li>
-                    <li><a href="#formations">Formations</a></li>
-                    <li><a href="#experiences">Expériences</a></li>
-                  <li><a href="cybersecurity-projects.html">Projets</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <div class="burger">
-                    <div class="line1"></div>
-                    <div class="line2"></div>
-                    <div class="line3"></div>
-                </div>
-            </nav>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#top" class="brand">santiago<span>@</span>fotso</a>
+    <nav aria-label="Main">
+      <ul id="menu">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle colour theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="theme-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">MSc Cyber Security · Lancaster University</p>
+        <h1>Viktor Michel-Ange<br>Santiago Fotso</h1>
+        <p class="lede">Penetration tester and incident investigator in training. <strong>Three internships</strong> across offensive security, incident response and embedded systems, plus active <strong>bug bounty research</strong>. Looking to start a career in cyber security consulting.</p>
+        <div class="actions">
+          <a href="assets/CV_Santiago_Fotso.pdf" class="btn primary" download>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14"/></svg>
+            Download CV
+          </a>
+          <a href="#contact" class="btn">Get in touch</a>
         </div>
-    </header>
+      </div>
+      <img src="assets/profile.jpg" alt="Portrait of Viktor Santiago Fotso" class="portrait" width="640" height="800">
+    </div>
+    <div class="wrap">
+      <div class="stats" style="margin-top:64px">
+        <div class="stat"><b>3</b><span>internships in pentesting, incident response and embedded security</span></div>
+        <div class="stat"><b>9.1</b><span>highest CVSS score among 5 findings on a client AI platform</span></div>
+        <div class="stat"><b>8.2</b><span>highest CVSS score reported in bug bounty programmes</span></div>
+        <div class="stat"><b>70</b><span>hands-on security projects, beginner to advanced</span></div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Hero Section -->
-    <section id="accueil" class="hero">
-        <div class="container">
-            <h1>VIKTOR MICHEL-ANGE SANTIAGO FOTSO</h1>
-            <p>Bachelor 3 <span class="highlight">Cybersécurité & Ethical Hacking</span></p>
-            <p>En recherche d'une <span class="highlight">Alternance/Stage</span></p>
-            <a href="#contact" class="btn">Me contacter</a>
+  <section class="block reveal" id="about">
+    <div class="wrap sec-head">
+      <div class="sec-label"><i>01</i>About</div>
+      <div class="prose">
+        <h2>Offensive mindset, defensive purpose.</h2>
+        <p>I am an MSc Cyber Security student at Lancaster University (NCSC and BCS accredited), after a Bachelor's in Cybersecurity and Ethical Hacking at EFREI and two years of computer engineering at UCAC-ICAM.</p>
+        <p>My work so far has focused on <strong>web and infrastructure penetration testing</strong>: scoping, testing, scoring findings with CVSS and writing reports that a client can act on. Alongside that I investigate incidents on Windows and Linux systems, hunt bugs on YesWeHack and HackerOne, and build tooling in Python.</p>
+        <p>Outside work I compete in CTFs, am a member of LUHack, Lancaster University's hacking society, and play golf and swim competitively.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block reveal" id="experience">
+    <div class="wrap sec-head">
+      <div class="sec-label"><i>02</i>Experience</div>
+      <div>
+        <h2>Where I have worked</h2>
+        <article class="role">
+          <div><h3>Cybersecurity Analyst · Penetration Testing Intern</h3><div class="org">KION Consulting, Johannesburg</div></div>
+          <div class="when">Feb – May 2026</div>
+          <ul>
+            <li>Carried out a full penetration test of the company's AI assistant web platform and found 5 vulnerabilities rated CVSS 6.5 to 9.1</li>
+            <li>Wrote the report and presented the remediation plan to the team</li>
+            <li>Reviewed logs and investigated security incidents on Windows and Linux systems</li>
+          </ul>
+          <div class="tags"><span class="tag">Web app pentest</span><span class="tag">Burp Suite</span><span class="tag">CVSS</span><span class="tag">Incident investigation</span></div>
+        </article>
+        <article class="role">
+          <div><h3>Penetration Tester Intern</h3><div class="org">National Agency for ICT (ANTIC), Cameroon</div></div>
+          <div class="when">May – Jul 2025</div>
+          <ul>
+            <li>Wrote Python scripts to automate vulnerability scanning and analysis</li>
+            <li>Analysed malware behaviour and built phishing simulations in an isolated test environment</li>
+          </ul>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Malware analysis</span><span class="tag">Phishing simulation</span></div>
+        </article>
+        <article class="role">
+          <div><h3>Embedded Systems Technician Intern</h3><div class="org">Tagus Drone</div></div>
+          <div class="when">May – Jun 2022</div>
+          <ul>
+            <li>Built an RFID-based access control system</li>
+          </ul>
+          <div class="tags"><span class="tag">RFID</span><span class="tag">Access control</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block reveal" id="projects">
+    <div class="wrap sec-head">
+      <div class="sec-label"><i>03</i>Projects</div>
+      <div>
+        <h2>Projects and security research</h2>
+        <div class="cards">
+          <div class="card">
+            <div class="kind"><span>Research</span><span>2025 – present</span></div>
+            <h3>Bug bounty hunting</h3>
+            <p>Vulnerabilities reported on YesWeHack and HackerOne, rated up to CVSS 8.2, including a hardcoded encryption key and exposed API keys.</p>
+            <div class="tags"><span class="tag">YesWeHack</span><span class="tag">HackerOne</span><span class="tag">Responsible disclosure</span></div>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Personal project</span><span>Blue team</span></div>
+            <h3>AI SOC Platform</h3>
+            <p>SOC simulation platform with multiple AI agents working on security alerts, deployed with Docker Compose.</p>
+            <div class="tags"><span class="tag">FastAPI</span><span class="tag">React</span><span class="tag">PostgreSQL</span><span class="tag">FAISS</span><span class="tag">Docker Compose</span></div>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Personal project</span><span>Detection</span></div>
+            <h3>PhishGuard</h3>
+            <p>Python desktop tool that analyses emails and flags phishing attempts using the OpenAI API.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">Tkinter</span><span class="tag">OpenAI API</span></div>
+          </div>
+          <a class="card" href="cybersecurity-projects.html">
+            <div class="kind"><span>Portfolio</span><span class="go">View all →</span></div>
+            <h3>70 hands-on security projects</h3>
+            <p>From beginner to advanced: honeypots, Snort IDS, digital forensics, PKI, malware sandboxing, threat intelligence and Red Team / Blue Team exercises.</p>
+            <div class="tags"><span class="tag">Red Team</span><span class="tag">Blue Team</span><span class="tag">Forensics</span></div>
+          </a>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- About Section -->
-    <section id="apropos" class="about">
-        <div class="container">
-            <h2 class="section-title">À propos de moi</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Je suis étudiant en Bachelor 3 Cybersécurité & Ethical Hacking, passionné par la sécurité informatique et les réseaux. Je recherche actuellement une alternance / un stage pour approfondir mes compétences pratiques dans le domaine de la cybersécurité.</p>
-                    <p>Mon parcours académique et mes expériences professionnelles m'ont permis de développer une expertise dans les tests d'intrusion, l'analyse de risques et la sécurisation des systèmes d'information.</p>
-                    <p>Je suis persévérant, curieux et autonome, avec une forte capacité d'adaptation aux nouvelles technologies et environnements.</p>
-                    <a href="MONCV.pdf" class="btn" download="CV_Santiago_Fotso.pdf">
-    Télécharger mon CV
-</a>
-                </div>
-                <div class="about-image">
-                  <div class="profile-img-placeholder">
-    <img 
-        src="profil.jpeg" 
-        alt="Photo de profil"
-        style="
-            width:300px;
-            height:300px;
-            border-radius:50%;
-            object-fit:cover;
-            background-color:#16213e;
-        "
-    >
-</div>
-                </div>
-            </div>
+  <section class="block reveal" id="education">
+    <div class="wrap sec-head">
+      <div class="sec-label"><i>04</i>Education</div>
+      <div>
+        <h2>Education</h2>
+        <div class="edu"><div><h3>MSc Cyber Security</h3><p>Lancaster University, UK · NCSC and BCS accredited</p></div><div class="when">2026 – 2027</div></div>
+        <div class="edu"><div><h3>Bachelor's Degree in Cybersecurity and Ethical Hacking</h3><p>EFREI, Bordeaux, France</p></div><div class="when">2025 – 2026</div></div>
+        <div class="edu"><div><h3>Computer Engineering (two years)</h3><p>UCAC-ICAM Institute, Douala, Cameroon</p></div><div class="when">2023 – 2025</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block reveal" id="certifications">
+    <div class="wrap sec-head">
+      <div class="sec-label"><i>05</i>Credentials</div>
+      <div>
+        <h2>Certifications</h2>
+        <div class="certs">
+          <div class="cert"><div><b>Developing Secure Software (LFD121)</b><span>Linux Foundation / OpenSSF · Oct 2026</span></div><a href="assets/certificates/LFD121_Developing_Secure_Software.pdf" target="_blank" rel="noopener">View ↗</a></div>
+          <div class="cert"><div><b>Zero Trust Security Essentials</b><span>Cato Networks · Oct 2026</span></div><a href="assets/certificates/Zero_Trust_Security_Essentials.pdf" target="_blank" rel="noopener">View ↗</a></div>
+          <div class="cert"><div><b>Ethical Hacker</b><span>Cisco Networking Academy</span></div><a href="certification%20Ethical%20Hacker.pdf" target="_blank" rel="noopener">View ↗</a></div>
+          <div class="cert"><div><b>CCNAv7: Introduction to Networks</b><span>Cisco Networking Academy</span></div><a href="CCNA-_Introduction_to_Networks_certificate_michel-ange-viktor-2028-ucac-icam-com_fb1f0f70-a22c-4d60-9b7f-352cc6db4f51.pdf" target="_blank" rel="noopener">View ↗</a></div>
+          <div class="cert"><div><b>Network Defense</b><span>Cisco Networking Academy</span></div></div>
+          <div class="cert"><div><b>AI Fluency: Framework and Foundations</b><span>Anthropic</span></div></div>
+          <div class="cert"><div><b>Google AI Essentials</b><span>Google</span></div></div>
+          <div class="cert"><div><b>Digital Marketing Certified</b><span>HubSpot</span></div></div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Skills Section -->
-    <section id="competences" class="skills">
-        <div class="container">
-            <h2 class="section-title">Compétences(Voir section Projet)</h2>
-            <div class="skills-container">
-                <div class="skill-category">
-                    <h3>Cybersécurité</h3>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Sécurisation SI (switch/routeur, VLAN, ACL)</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 85%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Analyse de risques</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 80%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Tests d'intrusions</span>
-                            <span>75%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 75%;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3>Réseaux</h3>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Architecture réseau</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 80%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Administration réseau</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 85%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Modèle OSI (couche 3 et 4)</span>
-                            <span>90%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 90%;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3>Langages de programmation</h3>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Python</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 80%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>HTML/CSS/JavaScript</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 85%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Bash/Powershell</span>
-                            <span>75%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 75%;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3>Systèmes & Réseaux</h3>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Windows</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 85%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Kali-linux, Ubuntu</span>
-                            <span>90%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 90%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Active Directory</span>
-                            <span>70%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 70%;"></div>
-                        </div>
-                    </div>
-                     <!-- Certifications -->
-    <div class="certifications" style="margin-top:20px;">
-        <h4>Certifications</h4>
-
-        <ul>
-            <li>
-                <a href="certification Ethical Hacker.pdf" download style="color:#e94560; text-decoration:none;">
-                    Certification Ethical Hacker
-                </a>
-            </li>
-            <li>
-                <a href="CCNA-_Introduction_to_Networks_certificate_michel-ange-viktor-2028-ucac-icam-com_fb1f0f70-a22c-4d60-9b7f-352cc6db4f51.pdf" download style="color:#e94560; text-decoration:none;">
-                    CCNA – Introduction to Networks
-                </a>
-                </li>
-                 </ul>
-                </div>
-            </div>
+  <section class="block reveal" id="skills">
+    <div class="wrap sec-head">
+      <div class="sec-label"><i>06</i>Skills</div>
+      <div>
+        <h2>Toolkit</h2>
+        <div class="skills">
+          <div><h3>Security</h3><div class="chips"><span class="chip">Penetration testing</span><span class="chip">Vulnerability assessment</span><span class="chip">CVSS</span><span class="chip">Incident investigation</span><span class="chip">Risk analysis</span><span class="chip">Active Directory</span><span class="chip">Zero Trust</span><span class="chip">Secure development</span></div></div>
+          <div><h3>Tools</h3><div class="chips"><span class="chip">Burp Suite</span><span class="chip">Nmap</span><span class="chip">Metasploit</span><span class="chip">Nuclei</span><span class="chip">mitmproxy</span><span class="chip">Wireshark</span><span class="chip">Kali Linux</span></div></div>
+          <div><h3>Programming</h3><div class="chips"><span class="chip">Python</span><span class="chip">Bash</span><span class="chip">PowerShell</span><span class="chip">C / C++</span><span class="chip">Java</span><span class="chip">JavaScript</span><span class="chip">SQL</span></div></div>
+          <div><h3>Networks and systems</h3><div class="chips"><span class="chip">TCP/IP</span><span class="chip">VLANs and ACLs</span><span class="chip">Routing and switching</span><span class="chip">Linux administration</span><span class="chip">Windows administration</span><span class="chip">Docker</span></div></div>
+          <div><h3>Languages</h3><div class="chips"><span class="chip">French · native</span><span class="chip">English · C1</span></div></div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Education Section -->
-    <section id="formations" class="education">
-        <div class="container">
-            <h2 class="section-title">Formations</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2025 - 2026</div>
-                        <h3>Bachelor 3 Cybersécurité & Ethical Hacking</h3>
-                        <p>EFREI, Bordeaux</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2023 - 2025</div>
-                        <h3>Ingénierie informatique</h3>
-                        <p>Institut Ucac-Icam, Douala</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2023</div>
-                        <h3>Baccalauréat Informatique</h3>
-                        <p>Collège François Xavier Vogt, Yaoundé</p>
-                        <p>Mention : Assez-Bien</p>
-                    </div>
-                </div>
-            </div>
+  <section class="contact reveal" id="contact">
+    <div class="wrap">
+      <div class="contact-box">
+        <div>
+          <h2>Let's talk.</h2>
+          <p>Open to opportunities in cyber security consulting, penetration testing and security operations.</p>
         </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experiences" class="experience">
-        <div class="container">
-            <h2 class="section-title">Expériences Professionnelles</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-date">Mai à juillet 2025</div>
-                        <h3>Stage Pentester</h3>
-                        <p>Agence Nationale des TIC - Stage</p>
-                        <ul>
-                            <li>Analyse comportementale et développement de logiciels malveillants dans un environnement de test sécurisé</li>
-                            <li>Développement de scripts d'analyse de failles</li>
-                            <li>Simulation de Phishing & clonage de site web</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-date">Mai à juin 2022</div>
-                        <h3>Stage Technicien en systèmes embarqués</h3>
-                        <p>Tagus Drone - Stage</p>
-                        <ul>
-                            <li>Réalisation d'un système de sécurité avec RFID</li>
-                            <li>Etude et pilotage de drone</li>
-                            <li>Etude approfondie sur les panneaux solaires</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <div class="links">
+          <a href="mailto:santiagofotso@gmail.com"><span class="k">email</span><span class="v">santiagofotso@gmail.com</span></a>
+          <a href="tel:+447570697101"><span class="k">phone</span><span class="v">+44 7570 697101</span></a>
+          <a href="https://www.linkedin.com/in/viktor-michel-ange-santiago-fotso-31205829b/" target="_blank" rel="noopener"><span class="k">linkedin</span><span class="v">Viktor Santiago Fotso ↗</span></a>
+          <a href="https://github.com/santiagovmf" target="_blank" rel="noopener"><span class="k">github</span><span class="v">santiagovmf ↗</span></a>
+          <div><span class="k">location</span><span class="v">Lancaster, United Kingdom</span></div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
+</main>
 
-    <!-- Projects Section -->
-    
-     <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Contact</h2>
-            <div class="contact-container" style="justify-content: center;">
-                <div class="contact-info" style="max-width: 800px;">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div>
-                            <h3>Téléphone</h3>
-                            <p>06 72 56 77 79</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <h3>Email</h3>
-                            <p>Santiagofotso@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div>
-                            <h3>Localisation</h3>
-                            <p>33300 Bordeaux</p>
-                            <p>Mobilité : Nationale</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-language"></i>
-                        </div>
-                        <div>
-                            <h3>Langues</h3>
-                            <p>Français : Natif</p>
-                            <p>Anglais : B2</p>
-                               <a 
-        href="https://cert.efset.org/DgmjLE" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        style="color:#e94560; text-decoration:underline;"
-    >
-        Voir mon certificat EF SET
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Viktor Michel-Ange Santiago Fotso</span>
+    <span class="mono">santiagovmf.github.io</span>
+  </div>
+</footer>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/viktor-michel-ange-santiago-fotso-31205829b/" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://www.croissantage.com/" class="social-link"><i class="fab fa-github"></i></a>
-            </div>
-            <p class="copyright">&copy; 2023 Viktor Michel-Ange Santiago Fotso. Tous droits réservés.</p>
-        </div>
-    </footer>
+<script>
+(function () {
+  var root = document.documentElement, btn = document.getElementById('themeBtn');
+  try { var saved = localStorage.getItem('theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+  btn.addEventListener('click', function () {
+    var cur = root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var next = cur === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
 
-    <script>
-        // Navigation burger menu
-        const burger = document.querySelector('.burger');
-        const nav = document.querySelector('.nav-links');
-        const navLinks = document.querySelectorAll('.nav-links li');
+  var menu = document.getElementById('menu'), menuBtn = document.getElementById('menuBtn');
+  menuBtn.addEventListener('click', function () {
+    var open = menu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open);
+  });
+  menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { menu.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }); });
 
-        burger.addEventListener('click', () => {
-            // Toggle Nav
-            nav.classList.toggle('nav-active');
-            
-            // Animate Links
-            navLinks.forEach((link, index) => {
-                if (link.style.animation) {
-                    link.style.animation = '';
-                } else {
-                    link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-                }
-            });
-            
-            // Burger Animation
-            burger.classList.toggle('toggle');
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if (nav.classList.contains('nav-active')) {
-                        nav.classList.remove('nav-active');
-                        burger.classList.remove('toggle');
-                        navLinks.forEach(link => {
-                            link.style.animation = '';
-                        });
-                    }
-                }
-            });
-        });
-
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Merci pour votre message! Je vous répondrai dans les plus brefs délais.');
-            this.reset();
-        });
-    </script>
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+  }
+})();
+</script>
 </body>
 </html>
