@@ -95,6 +95,17 @@ h2 { font-size: 28px; letter-spacing: -0.02em; line-height: 1.25; margin-bottom:
 .tags { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 .tag { font-family: var(--mono); font-size: 12px; padding: 3px 9px; border-radius: 5px; background: var(--accent-soft); color: var(--accent); }
 
+
+.pgroup { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin: 34px 0 14px; }
+.card h3 .pnum { color: var(--accent); margin-right: 10px; font-size: 14px; font-weight: 500; }
+.card details.learn { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 12px; }
+.card details.learn summary { cursor: pointer; font-size: 14px; color: var(--accent); font-weight: 500; list-style: none; }
+.card details.learn summary::-webkit-details-marker { display: none; }
+.card details.learn summary::after { content: ' +'; font-family: var(--mono); }
+.card details.learn[open] summary::after { content: ' −'; }
+.card ul.learned { margin: 10px 0 0; padding-left: 18px; }
+.card ul.learned li { font-size: 14.5px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+.card ul.learned li b { color: var(--ink); font-weight: 600; }
 /* Projects */
 .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; text-decoration: none; transition: border-color .15s, transform .15s; }
@@ -144,31 +155,6 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
 
-/* All projects */
-.allp { margin-top: 28px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
-.allp-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 22px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
-.allp-head h3 { font-size: 18px; font-weight: 600; }
-.allp-head input { font: inherit; font-size: 14.5px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); min-width: 0; width: 220px; max-width: 100%; }
-.allp-head input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
-.lvl { border-bottom: 1px solid var(--line); }
-.lvl summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 22px; }
-.lvl summary::-webkit-details-marker { display: none; }
-.lvl summary::after { content: "+"; font-family: var(--mono); color: var(--accent); font-size: 18px; margin-left: 12px; }
-.lvl[open] summary::after { content: "−"; }
-.lvl summary:hover { background: var(--accent-soft); }
-.lvl-name { font-weight: 600; font-size: 16px; margin-right: auto; }
-.lvl-meta { font-size: 12.5px; color: var(--muted); }
-.plist { list-style: none; padding: 0 22px 14px; }
-.plist li { display: grid; grid-template-columns: 34px 1fr auto; gap: 12px; align-items: baseline; padding: 9px 0; border-top: 1px dashed var(--line); }
-.plist li:first-child { border-top: none; }
-.pn { font-size: 12.5px; color: var(--accent); }
-.pt { font-size: 15.5px; }
-.pc { font-size: 13px; color: var(--muted); text-align: right; }
-.plist li.hide { display: none; }
-.allp-foot { padding: 14px 22px; font-size: 14.5px; }
-.allp-foot a { color: var(--accent); text-decoration: none; }
-.allp-foot a:hover { text-decoration: underline; }
-@media (max-width: 480px) { .plist li { grid-template-columns: 30px 1fr; } .pc { grid-column: 2; text-align: left; } .allp-head input { width: 100%; } }
 
 /* Responsive */
 @media (max-width: 860px) {
@@ -325,42 +311,124 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
             <p>Python desktop tool that analyses emails and flags phishing attempts using the OpenAI API.</p>
             <div class="tags"><span class="tag">Python</span><span class="tag">Tkinter</span><span class="tag">OpenAI API</span></div>
           </div>
-          <a class="card" href="#all-projects">
-            <div class="kind"><span>Portfolio</span><span class="go">Browse below ↓</span></div>
-            <h3>16 selected security projects</h3>
-            <p>A curated set for a pentester / red team and SOC / blue team profile: recon, web and Wi-Fi testing, Snort IDS, forensics, SIEM, threat intelligence and incident response.</p>
-            <div class="tags"><span class="tag">Red Team</span><span class="tag">Blue Team</span><span class="tag">Forensics</span></div>
-          </a>
         </div>
-        <div class="allp" id="all-projects">
-          <div class="allp-head"><h3>Selected projects</h3><input type="search" id="pfilter" placeholder="Filter projects…" aria-label="Filter projects"></div>
-          <details class="lvl" open>
-            <summary><span class="lvl-name">Red Team / Pentest</span><span class="lvl-meta mono">7 projects</span></summary>
-            <ol class="plist">
-              <li data-q="network recon & vulnerability scanning reconnaissance nmap openvas nse recon scanning ports services"><span class="pn mono">01</span><span class="pt">Network recon & vulnerability scanning</span><span class="pc">Reconnaissance</span></li>
-              <li data-q="web application security testing web application owasp zap web xss sql injection csrf"><span class="pn mono">02</span><span class="pt">Web application security testing</span><span class="pc">Web Application</span></li>
-              <li data-q="wi-fi security audit wireless wifi wpa2 wpa3 aircrack wireless deauth"><span class="pn mono">03</span><span class="pt">Wi-Fi security audit</span><span class="pc">Wireless</span></li>
-              <li data-q="password & hash security auditing authentication password hash credentials cracking mfa salting"><span class="pn mono">04</span><span class="pt">Password & hash security auditing</span><span class="pc">Authentication</span></li>
-              <li data-q="phishing simulation & awareness social engineering phishing gophish social engineering awareness"><span class="pn mono">05</span><span class="pt">Phishing simulation & awareness</span><span class="pc">Social Engineering</span></li>
-              <li data-q="red team / blue team exercises adversary emulation red team blue team purple team apt emulation"><span class="pn mono">06</span><span class="pt">Red Team / Blue Team exercises</span><span class="pc">Adversary Emulation</span></li>
-              <li data-q="bug bounty & responsible disclosure vulnerability research bug bounty yeswehack hackerone cvss disclosure"><span class="pn mono">07</span><span class="pt">Bug bounty & responsible disclosure</span><span class="pc">Vulnerability Research</span></li>
-            </ol>
-          </details>
-          <details class="lvl">
-            <summary><span class="lvl-name">Blue Team / SOC</span><span class="lvl-meta mono">9 projects</span></summary>
-            <ol class="plist">
-              <li data-q="network traffic analysis with wireshark network analysis wireshark tcp ip pcap traffic protocols anomaly"><span class="pn mono">08</span><span class="pt">Network traffic analysis with Wireshark</span><span class="pc">Network Analysis</span></li>
-              <li data-q="intrusion detection with snort ids detection snort ids rules intrusion detection signature"><span class="pn mono">09</span><span class="pt">Intrusion detection with Snort IDS</span><span class="pc">Detection</span></li>
-              <li data-q="honeypot deployment & attacker analysis threat detection honeypot cowrie decoy attacker ttp ioc"><span class="pn mono">10</span><span class="pt">Honeypot deployment & attacker analysis</span><span class="pc">Threat Detection</span></li>
-              <li data-q="malware behavioural analysis in a sandbox malware analysis malware sandbox behaviour dynamic analysis ioc"><span class="pn mono">11</span><span class="pt">Malware behavioural analysis in a sandbox</span><span class="pc">Malware Analysis</span></li>
-              <li data-q="digital forensics & incident investigation forensics forensics autopsy ftk dfir evidence timeline"><span class="pn mono">12</span><span class="pt">Digital forensics & incident investigation</span><span class="pc">Forensics</span></li>
-              <li data-q="siem log analysis with splunk siem splunk siem logs correlation dashboards alerts"><span class="pn mono">13</span><span class="pt">SIEM log analysis with Splunk</span><span class="pc">SIEM</span></li>
-              <li data-q="threat intelligence with mitre att&ck threat intelligence threat intelligence mitre attack ioc cti"><span class="pn mono">14</span><span class="pt">Threat intelligence with MITRE ATT&CK</span><span class="pc">Threat Intelligence</span></li>
-              <li data-q="proactive threat hunting threat hunting threat hunting edr hypothesis behavioural"><span class="pn mono">15</span><span class="pt">Proactive threat hunting</span><span class="pc">Threat Hunting</span></li>
-              <li data-q="incident response automation (soar) incident response soar playbooks automation incident response mttr"><span class="pn mono">16</span><span class="pt">Incident response automation (SOAR)</span><span class="pc">Incident Response</span></li>
-            </ol>
-          </details>
-          <p class="allp-foot"><a href="cybersecurity-projects.html">Detailed descriptions of each project ↗</a></p>
+        <h3 class="pgroup">Red Team / Pentest</h3>
+        <div class="cards">
+          <div class="card">
+            <div class="kind"><span>Red Team</span><span>Reconnaissance</span></div>
+            <h3><span class="pnum mono">01</span>Network recon &amp; vulnerability scanning</h3>
+            <p>Mapped hosts, ports and services across lab networks with Nmap, then validated known weaknesses with OpenVAS.</p>
+            <div class="tags"><span class="tag">Nmap</span><span class="tag">OpenVAS</span><span class="tag">NSE</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>Scan types</b> — SYN, full-connect and UDP scans and what each reveals or leaves in logs.</li><li><b>Fingerprinting</b> — Service and OS identification from banners and TCP/IP behaviour.</li><li><b>Finding to CVE</b> — Turning a service version into candidate CVEs and filtering false positives.</li><li><b>Attack surface</b> — Reading an exposed network from an attacker's point of view.</li></ul></details>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Red Team</span><span>Web Application</span></div>
+            <h3><span class="pnum mono">02</span>Web application security testing (OWASP Top 10)</h3>
+            <p>Built and tested web apps against the OWASP Top 10, probing them with OWASP ZAP.</p>
+            <div class="tags"><span class="tag">OWASP</span><span class="tag">ZAP</span><span class="tag">Web</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>OWASP Top 10</b> — Injection, XSS, CSRF and broken access control, and why they recur.</li><li><b>Input trust</b> — How unvalidated input becomes a vulnerability and where defences belong.</li><li><b>Proxy testing</b> — Using an intercepting proxy to inspect and manipulate requests.</li><li><b>Defence in depth</b> — Mapping each class of flaw to a concrete mitigation.</li></ul></details>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Red Team</span><span>Wireless</span></div>
+            <h3><span class="pnum mono">03</span>Wi-Fi security audit</h3>
+            <p>Audited wireless networks for weak configurations and compared WPA2 and WPA3 protections.</p>
+            <div class="tags"><span class="tag">Wi-Fi</span><span class="tag">WPA2/WPA3</span><span class="tag">Aircrack-ng</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>Wireless auth</b> — How WPA2 and WPA3 handshakes work and why WPA3 raises the bar.</li><li><b>Weak configs</b> — Why weak passphrases and legacy settings undermine encryption.</li><li><b>Deauth concept</b> — What a deauthentication attack is and how it exposes a network.</li><li><b>Hardening</b> — The configuration choices that make a wireless network resilient.</li></ul></details>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Red Team</span><span>Authentication</span></div>
+            <h3><span class="pnum mono">04</span>Password &amp; hash security auditing</h3>
+            <p>Built educational tooling to test password robustness and show why strong credentials matter.</p>
+            <div class="tags"><span class="tag">Hashing</span><span class="tag">Credentials</span><span class="tag">Python</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>Hash functions</b> — How passwords are stored as hashes and why salting and slow hashes matter.</li><li><b>Attack economics</b> — Why dictionary and brute-force attacks succeed against weak passwords.</li><li><b>Policy design</b> — What makes a password policy genuinely strong.</li><li><b>MFA value</b> — Why a second factor limits the damage of a cracked password.</li></ul></details>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Red Team</span><span>Social Engineering</span></div>
+            <h3><span class="pnum mono">05</span>Phishing simulation &amp; awareness</h3>
+            <p>Ran ethical phishing simulations with Gophish to measure and improve user awareness.</p>
+            <div class="tags"><span class="tag">Gophish</span><span class="tag">Phishing</span><span class="tag">Awareness</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>Social engineering</b> — The psychological levers phishing relies on: urgency, authority, trust.</li><li><b>Campaign metrics</b> — Measuring click and report rates to track awareness over time.</li><li><b>Email indicators</b> — The signals that let a user recognise a malicious email.</li><li><b>Human layer</b> — Why people are part of the attack surface, not an afterthought.</li></ul></details>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Red Team</span><span>Adversary Emulation</span></div>
+            <h3><span class="pnum mono">06</span>Red Team / Blue Team exercises</h3>
+            <p>Simulated realistic intrusion scenarios end to end and defended against them in real time.</p>
+            <div class="tags"><span class="tag">Red Team</span><span class="tag">Blue Team</span><span class="tag">Purple Team</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>Attack lifecycle</b> — Reconnaissance, exploitation, persistence and exfiltration as linked stages.</li><li><b>Detection gaps</b> — Seeing which attacker actions do and do not generate telemetry.</li><li><b>Purple teaming</b> — How offence and defence sharpen each other when they share findings.</li><li><b>Response under pressure</b> — Coordinating detection, containment and remediation live.</li></ul></details>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Red Team</span><span>Vulnerability Research</span></div>
+            <h3><span class="pnum mono">07</span>Bug bounty &amp; responsible disclosure</h3>
+            <p>Hunted and reported real vulnerabilities on YesWeHack and HackerOne under responsible-disclosure rules.</p>
+            <div class="tags"><span class="tag">YesWeHack</span><span class="tag">HackerOne</span><span class="tag">CVSS</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>Scope &amp; ethics</b> — Working strictly within program scope and legal boundaries.</li><li><b>CVSS scoring</b> — Rating impact and likelihood so severity is communicated clearly.</li><li><b>Report writing</b> — Producing reproducible reports a triage team can act on.</li><li><b>Disclosure process</b> — The responsible-disclosure workflow from submission to fix.</li></ul></details>
+          </div>
+        </div>
+        <h3 class="pgroup">Blue Team / SOC</h3>
+        <div class="cards">
+          <div class="card">
+            <div class="kind"><span>Blue Team</span><span>Network Analysis</span></div>
+            <h3><span class="pnum mono">08</span>Network traffic analysis with Wireshark</h3>
+            <p>Captured and dissected network traffic to spot anomalies and understand protocols.</p>
+            <div class="tags"><span class="tag">Wireshark</span><span class="tag">TCP/IP</span><span class="tag">PCAP</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>Packet analysis</b> — Reading TCP/IP, HTTP and DNS at the packet level.</li><li><b>Anomaly spotting</b> — Recognising suspicious or unencrypted communications in a capture.</li><li><b>Protocol behaviour</b> — What normal traffic looks like, so abnormal stands out.</li><li><b>Evidence from PCAP</b> — Using capture files as a source of truth in investigations.</li></ul></details>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Blue Team</span><span>Detection</span></div>
+            <h3><span class="pnum mono">09</span>Intrusion detection with Snort IDS</h3>
+            <p>Deployed and tuned Snort with custom rules to detect intrusions in real time.</p>
+            <div class="tags"><span class="tag">Snort</span><span class="tag">IDS</span><span class="tag">Rules</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>Signature detection</b> — How rule-based IDS matches known malicious patterns.</li><li><b>Rule writing</b> — Authoring custom signatures for scans and exploitation attempts.</li><li><b>Tuning</b> — Reducing false positives so real alerts are not drowned out.</li><li><b>Sensor placement</b> — Where an IDS sits in a network to see the right traffic.</li></ul></details>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Blue Team</span><span>Threat Detection</span></div>
+            <h3><span class="pnum mono">10</span>Honeypot deployment &amp; attacker analysis</h3>
+            <p>Deployed decoy systems to observe intrusion attempts and study attacker behaviour.</p>
+            <div class="tags"><span class="tag">Honeypot</span><span class="tag">Cowrie</span><span class="tag">Analysis</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>Deception</b> — How decoys attract and reveal attackers without risking real assets.</li><li><b>Attacker TTPs</b> — Observing the tactics, techniques and procedures attackers use.</li><li><b>Early warning</b> — Using honeypot hits as a high-signal, low-noise alert source.</li><li><b>IOC harvesting</b> — Collecting indicators of compromise from captured activity.</li></ul></details>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Blue Team</span><span>Malware Analysis</span></div>
+            <h3><span class="pnum mono">11</span>Malware behavioural analysis in a sandbox</h3>
+            <p>Studied malware behaviour inside an isolated sandbox to understand its actions safely.</p>
+            <div class="tags"><span class="tag">Sandbox</span><span class="tag">Behaviour</span><span class="tag">VirtualBox</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>Safe isolation</b> — Building a contained lab so analysis never touches production.</li><li><b>Dynamic analysis</b> — Watching process, file and network activity to infer intent.</li><li><b>Indicators</b> — Extracting host and network IOCs for detection.</li><li><b>Evasion awareness</b> — Why some malware detects and hides from sandboxes.</li></ul></details>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Blue Team</span><span>Forensics</span></div>
+            <h3><span class="pnum mono">12</span>Digital forensics &amp; incident investigation</h3>
+            <p>Investigated compromised systems to reconstruct attacker actions and recover evidence.</p>
+            <div class="tags"><span class="tag">Autopsy</span><span class="tag">FTK Imager</span><span class="tag">DFIR</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>Chain of custody</b> — Preserving evidence integrity so findings hold up.</li><li><b>Disk &amp; file analysis</b> — Recovering deleted files and reading filesystem artefacts.</li><li><b>Timeline building</b> — Reconstructing the sequence of events in an incident.</li><li><b>Artefact sources</b> — Where traces of intrusion live on a system.</li></ul></details>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Blue Team</span><span>SIEM</span></div>
+            <h3><span class="pnum mono">13</span>SIEM log analysis with Splunk</h3>
+            <p>Built real-time dashboards and alerts in Splunk to correlate security logs across sources.</p>
+            <div class="tags"><span class="tag">Splunk</span><span class="tag">SIEM</span><span class="tag">Correlation</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>Log centralisation</b> — Why bringing logs together is the foundation of monitoring.</li><li><b>Correlation</b> — Combining multi-source events to surface an attack a single log would miss.</li><li><b>Dashboards &amp; alerts</b> — Turning raw logs into views and alerts an analyst can act on.</li><li><b>Noise vs signal</b> — Writing alerts that fire on what matters.</li></ul></details>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Blue Team</span><span>Threat Intelligence</span></div>
+            <h3><span class="pnum mono">14</span>Threat intelligence with MITRE ATT&amp;CK</h3>
+            <p>Built tactical, operational and strategic threat-intel workflows mapped to MITRE ATT&amp;CK.</p>
+            <div class="tags"><span class="tag">MITRE ATT&amp;CK</span><span class="tag">IOC</span><span class="tag">CTI</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>ATT&amp;CK framework</b> — Mapping adversary behaviour to tactics and techniques.</li><li><b>Intel levels</b> — The difference between tactical, operational and strategic intelligence.</li><li><b>IOC enrichment</b> — Adding context to indicators so alerts are actionable.</li><li><b>Threat-informed defence</b> — Using what adversaries do to decide what to detect first.</li></ul></details>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Blue Team</span><span>Threat Hunting</span></div>
+            <h3><span class="pnum mono">15</span>Proactive threat hunting</h3>
+            <p>Searched proactively for hidden threats using hypotheses grounded in MITRE ATT&amp;CK.</p>
+            <div class="tags"><span class="tag">Threat Hunting</span><span class="tag">EDR</span><span class="tag">Hypothesis</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>Hypothesis-driven</b> — Starting from a theory of attacker behaviour, not waiting for alerts.</li><li><b>Behavioural analysis</b> — Hunting on anomalies in logs and endpoint telemetry.</li><li><b>EDR &amp; SIEM together</b> — Pivoting between endpoint and log data during a hunt.</li><li><b>Assume breach</b> — Working from the premise that an attacker may already be inside.</li></ul></details>
+          </div>
+          <div class="card">
+            <div class="kind"><span>Blue Team</span><span>Incident Response</span></div>
+            <h3><span class="pnum mono">16</span>Incident response automation (SOAR)</h3>
+            <p>Automated incident-response steps with SOAR playbooks for enrichment, containment and remediation.</p>
+            <div class="tags"><span class="tag">SOAR</span><span class="tag">Playbooks</span><span class="tag">Automation</span></div>
+            <details class="learn"><summary>What I learned</summary><ul class="learned"><li><b>Playbooks</b> — Codifying a repeatable response so nothing is improvised under pressure.</li><li><b>Orchestration</b> — Connecting tools so alerts trigger coordinated actions.</li><li><b>Alert enrichment</b> — Automatically adding context before a human looks at an alert.</li><li><b>MTTR</b> — Why automation cuts the time between detection and containment.</li></ul></details>
+          </div>
         </div>
       </div>
     </div>
@@ -428,8 +496,6 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
           <p>Open to opportunities in cyber security consulting, penetration testing and security operations.</p>
         </div>
         <div class="links">
-          <a href="mailto:santiagofotso@gmail.com"><span class="k">email</span><span class="v">santiagofotso@gmail.com</span></a>
-          <a href="tel:+447570697101"><span class="k">phone</span><span class="v">+44 7570 697101</span></a>
           <a href="https://www.linkedin.com/in/viktor-michel-ange-santiago-fotso-31205829b/" target="_blank" rel="noopener"><span class="k">linkedin</span><span class="v">Viktor Santiago Fotso ↗</span></a>
           <a href="https://github.com/santiagovmf" target="_blank" rel="noopener"><span class="k">github</span><span class="v">santiagovmf ↗</span></a>
           <div><span class="k">location</span><span class="v">Lancaster, United Kingdom</span></div>
@@ -464,16 +530,6 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   });
   menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { menu.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }); });
 
-  var pf = document.getElementById("pfilter");
-  if (pf) pf.addEventListener("input", function () {
-    var q = pf.value.trim().toLowerCase();
-    document.querySelectorAll(".lvl").forEach(function (lvl) {
-      var shown = 0;
-      lvl.querySelectorAll(".plist li").forEach(function (li) { var m = !q || li.dataset.q.indexOf(q) > -1; li.classList.toggle("hide", !m); if (m) shown++; });
-      if (q) lvl.open = shown > 0;
-      lvl.style.display = shown ? "" : "none";
-    });
-  });
 
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
